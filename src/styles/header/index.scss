@@ -1,0 +1,80 @@
+.header {
+  padding: 12px 0;
+  background-color: white;
+  &__navbar {
+    gap: 24px;
+    .item {
+      gap: 8px;
+      cursor: pointer;
+
+      span {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+      }
+
+      img {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+      }
+    }
+    .plus {
+      transition: 0.3s ease-in-out;
+      background-color: $main;
+      padding: 10px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      gap: 8px;
+      &:hover {
+        background-color: $main-hover;
+      }
+      span {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 22px;
+        color: #ffffff;
+      }
+    }
+  }
+  &__lang {
+    background-color: #00a9911f;
+    border-radius: 6px;
+    width: 132px;
+    &-option {
+      .ant-select-item-option-content {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        svg {
+          height: 16px;
+          border-radius: 4px;
+          flex-shrink: 0;
+          width: 24px;
+        }
+      }
+    }
+    .ant-select-selector {
+      .ant-select-selection-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        span {
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 20px;
+        }
+        svg {
+          height: 16px;
+          border-radius: 4px;
+          flex-shrink: 0;
+          width: 24px;
+        }
+      }
+    }
+    .ant-select-arrow {
+      display: none;
+    }
+  }
+}

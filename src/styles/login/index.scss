@@ -1,0 +1,71 @@
+.login {
+  min-height: $min-height;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $bg1;
+
+  & > .ant-tabs {
+    position: relative;
+    margin: 36px;
+    width: 380px;
+    padding: 24px;
+    box-shadow: 0px 0px 2px rgba(37, 42, 49, 0.16),
+      0px 1px 4px rgba(37, 42, 49, 0.12);
+    border-radius: 4px;
+    background: white;
+    .ant-form-item {
+      margin-bottom: 16px;
+    }
+    .password-reset {
+      display: inline-block;
+      float: right;
+      cursor: pointer;
+      margin-bottom: 16px;
+    }
+    .ant-btn {
+      width: 100%;
+    }
+  }
+  .top-tabs {
+    & > .ant-tabs-nav {
+      display: none;
+    }
+  }
+  .singup-tab {
+    .ant-tabs-nav {
+      display: none;
+    }
+    .accept-shartlar {
+      margin-bottom: 16px;
+      a {
+        color: $main;
+      }
+    }
+  }
+  .back-button {
+    background: white;
+    border: 1px solid lightgrey;
+    height: 36px;
+    width: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transform: rotate(45deg);
+    top: 24px;
+    left: -20px;
+    position: absolute;
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+    &:active {
+      transform: rotate(45deg) scale(0.95);
+    }
+    svg {
+      transform: rotate(315deg);
+    }
+  }
+  .ant-tabs-content-holder {
+    overflow: hidden;
+  }
+}

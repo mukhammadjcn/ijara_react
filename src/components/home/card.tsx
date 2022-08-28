@@ -1,0 +1,99 @@
+import React, { useState } from "react";
+import { Skeleton } from "antd";
+import {
+  BusSVG,
+  MetroSVG,
+  HeartSVG,
+  LocationSVG,
+  HeartFilledSVG,
+  WalkSVG,
+} from "src/assets/icons";
+import { prettyDate } from "src/utils/index";
+import { useAppSelector } from "src/hooks/index";
+import { Link } from "react-router-dom";
+
+function Card({ data }: any) {
+  const [liked, setLiked] = useState(false);
+  const metroList: any = useAppSelector((state) => state.Static.metro);
+  const regionList: any = useAppSelector((state) => state.Static.regions);
+
+  // Find metro
+  const FindMetro = (id: number) => {
+    return metroList.find((item: any) => item.id == id).name;
+  };
+
+  // Check apartmen type
+  const CheckApartment = (key: any) => {
+    return key == "AP" ? "Kvartira" : key == "CY" ? "Hovli" : "Xona";
+  };
+
+  if (data) {
+    return (
+      <div className="card">
+        <div className="card__images">
+          <div className="card__carousel">
+            <img src={data.image1} alt="" />
+          </div>
+          <span className="card__date">{prettyDate(data.updated_at)}</span>
+          <div className="card__like">
+            {liked ? (
+              <span onClick={() => setLiked(false)}>
+                <HeartFilledSVG />
+              </span>
+            ) : (
+              <span onClick={() => setLiked(true)}>
+                <HeartSVG color={"white"} />
+              </span>
+            )}
+          </div>
+        </div>
+        <div className="card__info">
+          <Link to={`/search/${data.deep_link}`}>
+            <h4 className="price">{data.cost_per_month} so‘m</h4>
+          </Link>
+          {data.near_metro && (
+            <div className="transport flex">
+              <MetroSVG />
+              <span>{FindMetro(data.near_metro)}</span>
+              <span style={{ color: "#4F5E71" }}>
+                {data?.time_to_metro} min {data?.distance_to_metro} m
+              </span>
+              {data?.transport_to_metro ? <BusSVG /> : <WalkSVG />}
+            </div>
+          )}
+          <div className="about flex">
+            <b>
+              {data?.number_of_rooms} xonali{" "}
+              {CheckApartment(data?.apartment_type)}
+            </b>
+            <hr />
+            <b>{data.full_area} м²</b>
+            <hr />
+            <b>
+              {data.floor}/{data?.number_of_floors} qavat
+            </b>
+          </div>
+          <div className="location flex">
+            <LocationSVG />
+            <span>Toshkent, Yunusobod tumani</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="card">
+      <div className="card__images">
+        <div className="card__carousel">
+          <Skeleton.Image active={true} />
+        </div>
+      </div>
+      <div className="card__info">
+        <Skeleton active={true} />
+      </div>
+    </div>
+  );
+}
+
+export default Card;

@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Module Resolution Options */
+    "baseUrl": "." /* Base directory to resolve non-absolute module names. */,
+    "paths": {
+      "src/assets/*": ["./src/assets/*"],
+      "src/components/*": ["./src/components/*"],
+      "src/hooks/*": ["./src/hooks/*"],
+      "src/pages/*": ["./src/pages/*"],
+      "src/redux/*": ["./src/redux/*"],
+      "src/utils/*": ["./src/utils/*"],
+      "src/styles/*": ["./src/config/styles/*"],
+      "src/slices/*": ["./src/redux/slices/*"]
+    }
+  },
+  "include": ["src", "src/server"]
+}

@@ -1,0 +1,145 @@
+// joc grant
+.profile {
+  min-height: $min-height;
+  background: $bg1;
+
+  .container {
+    gap: 24px;
+    display: flex;
+    align-items: flex-start;
+  }
+  &__sidebar {
+    width: 300px;
+    flex-shrink: 0;
+    padding-top: 40px;
+    border-right: 1px solid #cad4de;
+    padding-right: 12px;
+  }
+  &__user {
+    gap: 16px;
+    justify-content: flex-start;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #cad4de;
+    .img {
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #bac7d5;
+      border-radius: 50%;
+      font-size: 32px;
+      color: white;
+      font-weight: 700;
+    }
+    h2 {
+      font-weight: 400;
+      font-size: 22px;
+      line-height: 28px;
+    }
+    p {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: #4f5e71;
+    }
+  }
+  &__nav,
+  &__logout {
+    display: flex;
+    flex-direction: column;
+    padding: 24px 0;
+    border-bottom: 1px solid #cad4de;
+
+    .flex {
+      padding: 16px;
+      justify-content: flex-start;
+      gap: 12px;
+      cursor: pointer;
+      transition: 0.3s ease-in-out;
+
+      span {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        color: #252a31;
+      }
+      .number {
+        transition: 0.3s ease-in-out;
+        width: 24px;
+        height: 24px;
+        background: #e5eaef;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        border: 0.5px solid #d6dee6;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+        color: #252a31;
+      }
+    }
+    .active {
+      background: #e5eaef;
+      border-radius: 3px;
+      .number {
+        background: white;
+      }
+    }
+  }
+  &__logout {
+    padding: 0;
+    border-bottom: 0;
+    margin-top: 12px;
+  }
+  &__main {
+    padding: 40px 0;
+    flex-grow: 1;
+    .horizontal-card {
+      &:not(:last-child) {
+        margin-bottom: 16px;
+      }
+    }
+  }
+  &__edit {
+    section {
+      width: 500px;
+      padding: 32px;
+      background: #ffffff;
+      box-shadow: 0px 0px 2px rgba(37, 42, 49, 0.16),
+        0px 1px 4px rgba(37, 42, 49, 0.12);
+      border-radius: 4px;
+
+      &:not(:last-child) {
+        margin-bottom: 16px;
+      }
+      h2 {
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 28px;
+        color: #252a31;
+        margin-bottom: 16px;
+      }
+      .ant-form-item {
+        &:not(:last-child) {
+          margin-bottom: 12px;
+        }
+        &:last-child {
+          margin-bottom: 0;
+        }
+        &-label {
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 20px;
+          color: #252a31;
+        }
+      }
+    }
+  }
+  &__saved {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+}
