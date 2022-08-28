@@ -16,7 +16,7 @@ function SigninForm({ setTab, setSection }: any) {
         password,
       });
       localStorage.setItem("access", data.access);
-      navigate("/profile");
+      window.location.href = "/profile";
     } catch (error) {
       CatchError(error);
     }
