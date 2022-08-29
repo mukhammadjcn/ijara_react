@@ -43,7 +43,7 @@ function HorizontalCard({ data = null, stat = true }: any) {
             <div className="flex">
               <LocationSVG /> <span>Toshkent, Yunusobod tumani</span>
             </div>
-            {data.near_metro && (
+            {data.near_metro ? (
               <div className="transport flex">
                 <MetroSVG />
                 <span>{FindMetro(data.near_metro)}</span>
@@ -51,6 +51,11 @@ function HorizontalCard({ data = null, stat = true }: any) {
                   {data?.time_to_metro} min {data?.distance_to_metro} m
                 </span>
                 {data?.transport_to_metro ? <BusSVG /> : <WalkSVG />}
+              </div>
+            ) : (
+              <div className="transport flex">
+                <MetroSVG />
+                <span>Metro mavjud emas</span>
               </div>
             )}
             <div className="flex">

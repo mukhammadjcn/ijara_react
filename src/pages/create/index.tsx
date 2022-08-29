@@ -455,11 +455,12 @@ function CreateAdvert() {
                         rules={[{ required: true }]}
                       >
                         <Select placeholder="Metro nomini tanlang">
-                          {metroList.map((item: any) => (
-                            <Option key={item.id} value={item.id}>
-                              {item.name}
-                            </Option>
-                          ))}
+                          {metroList.length > 0 &&
+                            metroList.map((item: any) => (
+                              <Option key={item.id} value={item.id}>
+                                {item.name}
+                              </Option>
+                            ))}
                         </Select>
                       </Form.Item>
 

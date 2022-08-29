@@ -51,7 +51,7 @@ function Card({ data }: any) {
           <Link to={`/search/${data.deep_link}`}>
             <h4 className="price">{data.cost_per_month} so‘m</h4>
           </Link>
-          {data.near_metro && (
+          {data.near_metro ? (
             <div className="transport flex">
               <MetroSVG />
               <span>{FindMetro(data.near_metro)}</span>
@@ -59,6 +59,11 @@ function Card({ data }: any) {
                 {data?.time_to_metro} min {data?.distance_to_metro} m
               </span>
               {data?.transport_to_metro ? <BusSVG /> : <WalkSVG />}
+            </div>
+          ) : (
+            <div className="transport flex">
+              <MetroSVG />
+              <span>Metro mavjud emas</span>
             </div>
           )}
           <div className="about flex">

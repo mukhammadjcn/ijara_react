@@ -48,6 +48,12 @@
       cursor: pointer;
     }
   }
+  &__slider {
+    background: #ffffff;
+    padding: 4px;
+    border: 1px solid #bac7d5;
+    border-radius: 4px;
+  }
 }
 
 .searchID {
