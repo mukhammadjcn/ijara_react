@@ -1,11 +1,16 @@
-import { Button, Form, Input, message, Modal, Upload } from "antd";
+import React, { useState } from "react";
+import { CatchError } from "src/utils/index";
 import { MaskedInput } from "antd-mask-input";
 import { PlusOutlined } from "@ant-design/icons";
-import React, { useState } from "react";
+import { Button, Form, Input, message, Modal, Upload } from "antd";
+import { EditPasswordConfig, EditUserConfig } from "src/server/config/Urls";
 
 function ProfileEdit() {
-  const [fileList, setFileList] = useState<string | Blob>("");
+  const [form1] = Form.useForm();
+  const [form2] = Form.useForm();
+  const [form3] = Form.useForm();
   const [previewImage, setPreviewImage] = useState("");
+  const [fileList, setFileList] = useState<string | Blob>("");
   const [previewVisible, setPreviewVisible] = useState(false);
 
   const handlePreview = async (file: any) => {
@@ -15,11 +20,39 @@ function ProfileEdit() {
   const handleCancel = () => setPreviewVisible(false);
 
   // Api---------------------------------------------
+  const changePassword = async (val: any) => {
+    try {
+      await EditPasswordConfig(val);
+      message.success("Muvofaqqiyatli yangilandi !");
+      form1.resetFields();
+    } catch (error) {
+      CatchError(error);
+    }
+  };
+
+  const changeUserInfo = async (val: any) => {
+    try {
+      await EditUserConfig(val);
+      message.success("Muvofaqqiyatli yangilandi !");
+      form2.resetFields();
+    } catch (error) {
+      CatchError(error);
+    }
+  };
+
   const sendLogo = async (val: any) => {
     if (Object.keys(fileList).length > 0) {
+      // Create new formdata
       const data = new FormData();
-      data.append("name", val.name);
-      data.append("img", fileList);
+      data.append("agent_name", val.name);
+      data.append("agent_logo", fileList);
+
+      // Post to api
+      await EditUserConfig(data);
+      message.success("Muvofaqqiyatli yangilandi !");
+      form3.resetFields();
+      setPreviewImage("");
+      setFileList("");
     } else {
       message.error("File ni yuklang");
     }
@@ -32,14 +65,15 @@ function ProfileEdit() {
         <h2>Parolni o‘zgartirish</h2>
 
         <Form
+          form={form1}
           name="password"
-          initialValues={{ remember: true }}
           autoComplete="off"
           layout="vertical"
+          onFinish={changePassword}
         >
           <Form.Item
             label="Parolingiz"
-            name="password"
+            name="old_password"
             rules={[{ required: true }]}
           >
             <Input placeholder="Parolingizni kiriting" size="large" />
@@ -47,7 +81,7 @@ function ProfileEdit() {
 
           <Form.Item
             label="Yangi parolingiz"
-            name="new-password"
+            name="new_password"
             rules={[{ required: true }]}
           >
             <Input placeholder="Yangi parolingizni kiritng" size="large" />
@@ -67,8 +101,9 @@ function ProfileEdit() {
 
         <Form
           name="phone"
-          initialValues={{ remember: true }}
           autoComplete="off"
+          form={form2}
+          onFinish={changeUserInfo}
           layout="vertical"
         >
           <Form.Item
@@ -84,7 +119,7 @@ function ProfileEdit() {
 
           <Form.Item
             label="Telefon raqami"
-            name="phone"
+            name="phone_number"
             rules={[
               {
                 required: true,
@@ -113,12 +148,15 @@ function ProfileEdit() {
 
         <Form
           name="phone"
-          initialValues={{ remember: true }}
           autoComplete="off"
           layout="vertical"
+          form={form3}
           onFinish={sendLogo}
         >
-          <Form.Item label="Upload" valuePropName="fileList">
+          <Form.Item
+            label="OTM yoki agentlik nomini logosi"
+            valuePropName="fileList"
+          >
             <Upload
               listType="picture-card"
               beforeUpload={(val: any) => {
@@ -131,14 +169,14 @@ function ProfileEdit() {
             >
               <div>
                 <PlusOutlined />
-                <div style={{ marginTop: 8 }}>Upload</div>
+                <div style={{ marginTop: 8 }}>Yuklash</div>
               </div>
             </Upload>
           </Form.Item>
 
           <Form.Item
             label="OTM yoki agentlik nomi"
-            name="name"
+            name="agent_logo"
             rules={[{ required: true }]}
           >
             <Input

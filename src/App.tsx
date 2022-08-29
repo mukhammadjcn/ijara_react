@@ -52,8 +52,6 @@ function App() {
     }
   };
 
-  console.log(token);
-
   useEffect(() => {
     GetMetro();
     GetRegions();

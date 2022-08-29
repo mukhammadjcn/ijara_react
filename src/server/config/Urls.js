@@ -41,7 +41,7 @@ export const DelAdvertsIDConfig = (id) => {
   return DeleteFunc(`/announcement/ads/${id}/`);
 };
 
-// Get user info -----------------------------------------------------------
+// Get Edit user info -----------------------------------------------------------
 export const GetUserConfig = () => {
   return GetFunc(`/users/me/`);
 };
@@ -51,6 +51,12 @@ export const DeleteUserConfig = () => {
 export const EditUserConfig = (data) => {
   return EditFunc(`/users/me/`, data, "PATCH");
 };
+export const PostLIkeConfig = (data) => {
+  return CreateFunc(`/users/like/`, data);
+};
+export const EditPasswordConfig = (data) => {
+  return CreateFunc(`/users/password/`, data);
+};
 
 // Get adverts --------------------------------------------------------------
 export const GetAdvertsConfig = (params = "") => {
@@ -59,8 +65,11 @@ export const GetAdvertsConfig = (params = "") => {
 export const GetFavoritesConfig = () => {
   return GetFunc(`/users/favorites/`);
 };
-export const PostLIkeConfig = (data) => {
-  return CreateFunc(`/users/like/`, data);
+export const MyAdvertsConfig = () => {
+  return GetFunc(`/users/ads/?status=waiting`);
+};
+export const MyFavoritesConfig = () => {
+  return GetFunc(`/users/favorites/`);
 };
 
 // Get statitcs -------------------------------------------------------------
