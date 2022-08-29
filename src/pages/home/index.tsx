@@ -18,7 +18,7 @@ function HomePage() {
   const GetAdverts = async () => {
     try {
       const { data } = await GetAdvertsListConfig();
-      setAdverts(data.results);
+      setAdverts(data.results.slice(0, 8));
     } catch (error) {
       CatchError(error);
     }

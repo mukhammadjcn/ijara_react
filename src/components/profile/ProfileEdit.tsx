@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CatchError } from "src/utils/index";
+import { CatchError, PrettyPhone } from "src/utils/index";
 import { MaskedInput } from "antd-mask-input";
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, Form, Input, message, Modal, Upload } from "antd";
@@ -32,7 +32,10 @@ function ProfileEdit() {
 
   const changeUserInfo = async (val: any) => {
     try {
-      await EditUserConfig(val);
+      await EditUserConfig({
+        name: val.name,
+        phone_number: PrettyPhone(val.phone_number),
+      });
       message.success("Muvofaqqiyatli yangilandi !");
       form2.resetFields();
     } catch (error) {

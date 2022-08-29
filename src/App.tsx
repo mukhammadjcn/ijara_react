@@ -5,7 +5,14 @@ import {
   Navigate,
   BrowserRouter as Router,
 } from "react-router-dom";
-import { token } from "./server/Host";
+import {
+  METRO,
+  metroList,
+  REGIONS,
+  regionsList,
+  SetLocal,
+  token,
+} from "./server/Host";
 import {
   Create,
   HomePage,
@@ -19,21 +26,15 @@ import "antd/dist/antd.css";
 import "./styles/globals.scss";
 import { useEffect } from "react";
 import { CatchError } from "./utils";
-import { useAppDispatch, useAppSelector } from "./hooks";
-import { setMetro, setRegions } from "src/redux/slices/static";
 import { GetMetroConfig, GetRegionsConfig } from "src/server/config/Urls";
 
 function App() {
-  const dispatch = useAppDispatch();
-  const metro = useAppSelector((state) => state.Static.metro);
-  const regions = useAppSelector((state) => state.Static.regions);
-
   // Get regions at first
   const GetRegions = async () => {
-    if (Object.keys(regions).length < 1) {
+    if (regionsList.length < 1) {
       try {
         const { data } = await GetRegionsConfig();
-        dispatch(setRegions(data));
+        SetLocal(REGIONS, JSON.stringify(data));
       } catch (error) {
         CatchError(error);
       }
@@ -42,10 +43,10 @@ function App() {
 
   // Get Metro at first
   const GetMetro = async () => {
-    if (Object.keys(metro).length < 1) {
+    if (metroList < 1) {
       try {
         const { data } = await GetMetroConfig();
-        dispatch(setMetro(data));
+        SetLocal(METRO, JSON.stringify(data));
       } catch (error) {
         CatchError(error);
       }

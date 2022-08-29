@@ -184,6 +184,8 @@
   overflow: hidden;
   border: 2px solid #00a99100;
   border-radius: 4px;
+  height: 48px;
+  cursor: pointer;
 }
 .carousel .thumb.selected,
 .carousel .thumb:hover {
@@ -268,6 +270,7 @@
   width: 100%;
   vertical-align: top;
   border: 0;
+  height: 400px;
 }
 .carousel .slide iframe {
   display: inline-block;

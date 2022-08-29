@@ -2,24 +2,24 @@ import React, { useState } from "react";
 import { Skeleton } from "antd";
 import {
   BusSVG,
+  WalkSVG,
   MetroSVG,
   HeartSVG,
   LocationSVG,
   HeartFilledSVG,
-  WalkSVG,
 } from "src/assets/icons";
 import { prettyDate } from "src/utils/index";
-import { useAppSelector } from "src/hooks/index";
 import { Link } from "react-router-dom";
+import { metroList } from "src/server/Host";
 
 function Card({ data }: any) {
   const [liked, setLiked] = useState(false);
-  const metroList: any = useAppSelector((state) => state.Static.metro);
-  const regionList: any = useAppSelector((state) => state.Static.regions);
 
   // Find metro
   const FindMetro = (id: number) => {
-    return metroList.find((item: any) => item.id == id).name;
+    if (metroList.length > 0) {
+      return metroList.find((item: any) => item.id == id)["name"];
+    }
   };
 
   // Check apartmen type
@@ -32,7 +32,7 @@ function Card({ data }: any) {
       <div className="card">
         <div className="card__images">
           <div className="card__carousel">
-            <img src={data.image1} alt="" />
+            <img src={data.image1.replace("http", "https")} alt="" />
           </div>
           <span className="card__date">{prettyDate(data.updated_at)}</span>
           <div className="card__like">

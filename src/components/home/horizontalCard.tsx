@@ -12,15 +12,15 @@ import {
 } from "src/assets/icons";
 import { Skeleton } from "antd";
 import { prettyDate } from "src/utils/index";
-import { useAppSelector } from "src/hooks/index";
 import { Link } from "react-router-dom";
+import { metroList } from "src/server/Host";
 
 function HorizontalCard({ data = null, stat = true }: any) {
-  const metroList: any = useAppSelector((state) => state.Static.metro);
-
   // Find metro
-  const FindMetro = (id: any) => {
-    return metroList.find((item: any) => item.id == id).name;
+  const FindMetro = (id: number) => {
+    if (metroList.length > 0) {
+      return metroList.find((item: any) => item.id == id)["name"];
+    }
   };
 
   if (data) {

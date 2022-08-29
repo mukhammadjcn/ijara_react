@@ -13,11 +13,10 @@ import {
 import { Carousel } from "react-responsive-carousel";
 import LocationMap from "src/components/map/LocationMap";
 import { Button, message, Skeleton } from "antd";
-import { useAppSelector } from "src/hooks/index";
 import { CatchError, prettyDate } from "src/utils/index";
-import { useLocation, useNavigate, useRoutes } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { GetAdvertsIDConfig, PostLIkeConfig } from "src/server/config/Urls";
-import { token } from "src/server/Host";
+import { metroList, token } from "src/server/Host";
 import Header from "src/components/header";
 import Footer from "src/components/footer";
 
@@ -27,11 +26,10 @@ function SelectedAdvert() {
   const [phone, setPhone] = useState(false);
   const [data, setData] = useState<any>(null);
   const [images, setImages] = useState<any>([]);
-  const metroList: any = useAppSelector((state) => state.Static.metro);
 
   // Find metro
   const FindMetro = (id: any) => {
-    return metroList.find((item: any) => item.id == id).name;
+    return metroList.find((item: any) => item.id == id)?.name;
   };
 
   const LikePost = async () => {
@@ -114,22 +112,25 @@ function SelectedAdvert() {
                       <LocationSVG />
                       <span>Toshkent, Yunusobod tumani</span>
                     </div>
-                    <span>KELISHILADI</span>
+                    <span>{data?.is_negotiable && "KELISHILADI"}</span>
                   </div>
-                  <div className="flex metro">
-                    <div className="flex">
-                      <MetroSVG />
-                      <span>{FindMetro(data.near_metro)}</span>
-                      <span style={{ color: "#4F5E71" }}>
-                        {data?.time_to_metro} min {data?.distance_to_metro} m
-                      </span>
-                      {data?.transport_to_metro ? <BusSVG /> : <WalkSVG />}
+                  {data.near_metro && (
+                    <div className="flex metro">
+                      <div className="flex">
+                        <MetroSVG />
+                        <span>{FindMetro(data.near_metro)}</span>
+                        <span style={{ color: "#4F5E71" }}>
+                          {data?.time_to_metro} min {data?.distance_to_metro} m
+                        </span>
+                        {data?.transport_to_metro ? <BusSVG /> : <WalkSVG />}
+                      </div>
+                      <div className="flex">
+                        <DateSVG />
+                        <span>{prettyDate(data.updated_at)}</span>
+                      </div>
                     </div>
-                    <div className="flex">
-                      <DateSVG />
-                      <span>{prettyDate(data.updated_at)}</span>
-                    </div>
-                  </div>
+                  )}
+
                   <div className="searchID__carousel">
                     <Carousel
                       autoPlay

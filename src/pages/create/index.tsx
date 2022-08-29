@@ -16,11 +16,11 @@ import {
 } from "antd";
 import { CatchError, PrettyPhone } from "src/utils/index";
 import SelectMap from "src/components/map/SelectMap";
-import { useAppSelector } from "src/hooks/index";
-import { Link, useNavigate, useRoutes } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PostAdvertConfig } from "src/server/config/Urls";
 import Header from "src/components/header";
 import Footer from "src/components/footer";
+import { metroList, regionsList } from "src/server/Host";
 
 function CreateAdvert() {
   const { Option } = Select;
@@ -33,8 +33,6 @@ function CreateAdvert() {
   const [previewImage, setPreviewImage] = useState("");
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [previewVisible, setPreviewVisible] = useState(false);
-  const metroList: any = useAppSelector((state) => state.Static.metro);
-  const regionsList: any = useAppSelector((state) => state.Static.regions);
 
   const handleCancel = () => setPreviewVisible(false);
   const handlePreview = async (file: any) => {
@@ -101,7 +99,6 @@ function CreateAdvert() {
       }
     }
   };
-
   const deletePicture = (file: any) => {
     const index = fileList.indexOf(file);
     const newFileList = fileList.slice();
@@ -181,9 +178,9 @@ function CreateAdvert() {
                     rules={[{ required: true }]}
                   >
                     <Radio.Group>
-                      <Radio value="AP">Kavartira</Radio>
+                      {!sherik && <Radio value="AP">Kavartira</Radio>}
                       <Radio value="CY">Xona</Radio>
-                      <Radio value="RM">Hovli</Radio>
+                      {!sherik && <Radio value="RM">Hovli</Radio>}
                     </Radio.Group>
                   </Form.Item>
 
@@ -206,11 +203,12 @@ function CreateAdvert() {
                           );
                         }}
                       >
-                        {regionsList.map((item: any) => (
-                          <Option key={item.id} value={item.id}>
-                            {item.name}
-                          </Option>
-                        ))}
+                        {regionsList.length > 0 &&
+                          regionsList.map((item: any) => (
+                            <Option key={item.id} value={item.id}>
+                              {item.name}
+                            </Option>
+                          ))}
                       </Select>
                     </Form.Item>
 
@@ -221,11 +219,12 @@ function CreateAdvert() {
                       rules={[{ required: true }]}
                     >
                       <Select placeholder="Tumanni tanlang">
-                        {districts.map((item: any) => (
-                          <Option key={item.id} value={item.id}>
-                            {item.name}
-                          </Option>
-                        ))}
+                        {districts.length > 0 &&
+                          districts.map((item: any) => (
+                            <Option key={item.id} value={item.id}>
+                              {item.name}
+                            </Option>
+                          ))}
                       </Select>
                     </Form.Item>
                   </div>
@@ -245,16 +244,17 @@ function CreateAdvert() {
                   )}
 
                   {/* Sheriklikka nechta odam kerak */}
-                  {false && (
+                  {sherik && (
                     <Form.Item
                       label="Sheriklikka nechta odam kerak"
-                      name="sherik-number"
+                      name="number_of_partner"
                       rules={[{ required: true }]}
                     >
                       <Radio.Group optionType="button" buttonStyle="solid">
                         <Radio value="1">1</Radio>
                         <Radio value="2">2</Radio>
-                        <Radio value="3+">3+</Radio>
+                        <Radio value="3">3</Radio>
+                        <Radio value="4">4+</Radio>
                       </Radio.Group>
                     </Form.Item>
                   )}
