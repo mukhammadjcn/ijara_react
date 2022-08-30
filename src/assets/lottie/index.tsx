@@ -1,6 +1,8 @@
 import done from "./done.json";
 import alert from "./alert.json";
-import nodata from "./no_data.json";
+// import nodata from "./no_data.json";
+import nodata from "./no_data_girls.json";
+// import nodata from "./no_data_search.json";
 
 export const optionDone = {
   loop: false,

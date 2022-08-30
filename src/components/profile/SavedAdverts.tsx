@@ -1,12 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "src/components/home/card";
+import { MyFavoritesConfig } from "src/server/config/Urls";
+import { CatchError } from "src/utils/index";
+import NoData from "../animation/NoData";
 
 function SavedAdverts() {
+  const [adverts, setAdverts] = useState([null, null, null, null]);
+
+  // Get adverts list
+  const GetAdverts = async () => {
+    try {
+      const { data } = await MyFavoritesConfig();
+      setAdverts(data);
+    } catch (error) {
+      CatchError(error);
+    }
+  };
+
+  useEffect(() => {
+    GetAdverts();
+  }, []);
+
   return (
     <div className="profile__saved">
-      {[0, 0, 0].map((item, index) => (
-        <Card key={index} />
-      ))}
+      {adverts.length > 1 ? (
+        adverts.map((elem, index) => <Card key={index} data={elem} />)
+      ) : (
+        <NoData />
+      )}
     </div>
   );
 }

@@ -65,9 +65,6 @@ export const GetAdvertsConfig = (params = "") => {
 export const GetFavoritesConfig = () => {
   return GetFunc(`/users/favorites/`);
 };
-export const MyAdvertsConfig = () => {
-  return GetFunc(`/users/ads/?status=waiting`);
-};
 export const MyFavoritesConfig = () => {
   return GetFunc(`/users/favorites/`);
 };
