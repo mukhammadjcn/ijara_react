@@ -13,7 +13,13 @@ import {
 import { Carousel } from "react-responsive-carousel";
 import LocationMap from "src/components/map/LocationMap";
 import { Button, message, Skeleton } from "antd";
-import { CatchError, FindMetro, prettyDate } from "src/utils/index";
+import {
+  CatchError,
+  FindDistrict,
+  FindMetro,
+  FindRegion,
+  prettyDate,
+} from "src/utils/index";
 import { useLocation, useNavigate } from "react-router-dom";
 import { GetAdvertsIDConfig, PostLIkeConfig } from "src/server/config/Urls";
 import { token } from "src/server/Host";
@@ -66,6 +72,7 @@ function SelectedAdvert() {
 
   useEffect(() => {
     GetAdvert(location.pathname.replace("/search/", ""));
+    window.scrollTo(0, 0);
   }, [location.pathname]);
 
   if (data) {
@@ -105,7 +112,10 @@ function SelectedAdvert() {
                   <div className="flex location">
                     <div className=" flex">
                       <LocationSVG />
-                      <span>Toshkent, Yunusobod tumani</span>
+                      <span>
+                        {FindRegion(data.region)},{" "}
+                        {FindDistrict(data.region, data.district)}
+                      </span>
                     </div>
                     <span>{data?.is_negotiable && "KELISHILADI"}</span>
                   </div>
@@ -292,9 +302,15 @@ function SelectedAdvert() {
                   <div className="flex">
                     <div className="searchID__user">
                       <div className="profile__user flex">
-                        <div className="img">A</div>
+                        <div className="img">
+                          {data.owner_data?.name
+                            ? data.owner_data?.name.slice(0, 1)
+                            : "?"}
+                        </div>
                         <div>
-                          <h4>Abror Askarov</h4>
+                          <h4>
+                            {data.owner_data?.name || data.owner_data?.id}
+                          </h4>
                           <p>ID {data.owner_data.id}</p>
                         </div>
                       </div>
@@ -319,20 +335,33 @@ function SelectedAdvert() {
               </div>
               <div className="searchID__sidebar">
                 <div className="profile__user flex">
-                  <div className="img">A</div>
+                  <div className="img">
+                    {data.owner_data?.name
+                      ? data.owner_data?.name.slice(0, 1)
+                      : "?"}
+                  </div>
                   <div>
-                    <h4>Abror Askarov</h4>
+                    <h4>{data.owner_data?.name || data.owner_data?.id}</h4>
                     <p>ID {data.owner_data.id}</p>
                   </div>
                 </div>
-                <a
-                  href={`tel:+${data.owner_data.phone_number}`}
-                  target="_blank"
-                  className="call"
-                  rel="noreferrer"
-                >
-                  <button>Qo‘ng’iroq qilish</button>
-                </a>
+                {phone ? (
+                  <div>
+                    <a
+                      href={`tel:+${data.owner_data.phone_number}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="call"
+                    >
+                      <button>+ {data.owner_data.phone_number}</button>
+                    </a>
+                  </div>
+                ) : (
+                  <a onClick={() => setPhone(true)} className="call">
+                    <button>Telefon raqamni ko‘rsatish</button>
+                  </a>
+                )}
+
                 <button
                   className="message"
                   onClick={() => message.info("Ishlab chiqish jarayonida !")}

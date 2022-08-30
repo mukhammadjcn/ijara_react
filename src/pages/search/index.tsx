@@ -145,6 +145,7 @@ function SearchPage() {
 
   useEffect(() => {
     makeDefaultParams();
+    window.scrollTo(0, 0);
   }, []);
 
   return (
