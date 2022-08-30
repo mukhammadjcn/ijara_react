@@ -1,5 +1,5 @@
 import { message } from "antd";
-import { ACCESS, REFRESH, ROLE } from "../server/Host";
+import { ACCESS, metroList, REFRESH, regionsList, ROLE } from "../server/Host";
 
 // Catch all error
 export const CatchError = async (error: any) => {
@@ -78,4 +78,32 @@ export const prettyDate = (time = "29-10-2022 15:20:38") => {
 // Pretty phone
 export const PrettyPhone = (phone: string) => {
   return `998${phone.replace("(", "").replace(")", "").replaceAll(" ", "")}`;
+};
+
+// Find metro
+export const FindMetro = (id: number) => {
+  if (metroList.length > 0) {
+    return metroList.find((item: any) => item.id == id)?.name;
+  }
+};
+
+// Find region
+export const FindRegion = (id: number) => {
+  if (regionsList.length > 0) {
+    return regionsList.find((item: any) => item.id == id)?.name;
+  }
+};
+
+// Find District
+export const FindDistrict = (region: number, id: number) => {
+  let district = [];
+  if (regionsList.length > 0) {
+    district = regionsList.find((item: any) => item.id == region).districts;
+  }
+  return district.find((item: any) => item.id == id)?.name;
+};
+
+// Check apartmen type
+export const CheckApartment = (key: any) => {
+  return key == "AP" ? "Kvartira" : key == "CY" ? "Hovli" : "Xona";
 };

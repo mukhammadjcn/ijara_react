@@ -195,7 +195,7 @@ function CreateAdvert() {
                       <Select
                         placeholder="Viloyatni tanlang"
                         onChange={(val) => {
-                          setMetro(val == 1);
+                          setMetro(val == 17);
                           form.setFieldValue("district", null);
                           setDistricts(
                             regionsList.find((item: any) => item.id == val)
@@ -564,7 +564,7 @@ function CreateAdvert() {
                     name="description"
                     rules={[{ required: true }]}
                   >
-                    <Input.TextArea showCount maxLength={100} rows={5} />
+                    <Input.TextArea showCount maxLength={1000} rows={5} />
                   </Form.Item>
                 </section>
 

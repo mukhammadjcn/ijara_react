@@ -13,10 +13,10 @@ import {
 import { Carousel } from "react-responsive-carousel";
 import LocationMap from "src/components/map/LocationMap";
 import { Button, message, Skeleton } from "antd";
-import { CatchError, prettyDate } from "src/utils/index";
+import { CatchError, FindMetro, prettyDate } from "src/utils/index";
 import { useLocation, useNavigate } from "react-router-dom";
 import { GetAdvertsIDConfig, PostLIkeConfig } from "src/server/config/Urls";
-import { metroList, token } from "src/server/Host";
+import { token } from "src/server/Host";
 import Header from "src/components/header";
 import Footer from "src/components/footer";
 
@@ -26,11 +26,6 @@ function SelectedAdvert() {
   const [phone, setPhone] = useState(false);
   const [data, setData] = useState<any>(null);
   const [images, setImages] = useState<any>([]);
-
-  // Find metro
-  const FindMetro = (id: any) => {
-    return metroList.find((item: any) => item.id == id)?.name;
-  };
 
   const LikePost = async () => {
     if (token) {

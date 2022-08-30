@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   EyeSVG,
   BusSVG,
@@ -11,18 +11,15 @@ import {
   HeartFilledSVG,
 } from "src/assets/icons";
 import { Skeleton } from "antd";
-import { prettyDate } from "src/utils/index";
+import {
+  FindDistrict,
+  FindMetro,
+  FindRegion,
+  prettyDate,
+} from "src/utils/index";
 import { Link } from "react-router-dom";
-import { metroList } from "src/server/Host";
 
 function HorizontalCard({ data = null, stat = true }: any) {
-  // Find metro
-  const FindMetro = (id: number) => {
-    if (metroList.length > 0) {
-      return metroList.find((item: any) => item.id == id)["name"];
-    }
-  };
-
   if (data) {
     return (
       <div className="horizontal-card">
@@ -41,7 +38,11 @@ function HorizontalCard({ data = null, stat = true }: any) {
           </Link>
           <div className="info">
             <div className="flex">
-              <LocationSVG /> <span>Toshkent, Yunusobod tumani</span>
+              <LocationSVG />{" "}
+              <span>
+                {FindRegion(data.region)},{" "}
+                {FindDistrict(data.region, data.district)}
+              </span>
             </div>
             {data.near_metro ? (
               <div className="transport flex">

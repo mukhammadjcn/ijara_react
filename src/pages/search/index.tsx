@@ -201,6 +201,7 @@ function SearchPage() {
               <Option value="2">2</Option>
               <Option value="3">3</Option>
               <Option value="4">4</Option>
+              <Option value="5">5</Option>
             </Select>
 
             {/* Narxi */}
@@ -224,20 +225,30 @@ function SearchPage() {
               >
                 <div className="flex">
                   <Input
+                    allowClear
                     size="large"
                     placeholder="100000 dan"
                     style={{ width: 140, flexShrink: 0 }}
                     value={
                       searchParams.get("cost_per_month__range")?.split(",")[0]
                     }
+                    onChange={(e) => {
+                      !e.target.value &&
+                        handleMakeParams("cost_per_month__range", null);
+                    }}
                   />
                   <Input
+                    allowClear
                     size="large"
                     placeholder="100000 dan"
                     style={{ width: 140, flexShrink: 0 }}
                     value={
                       searchParams.get("cost_per_month__range")?.split(",")[1]
                     }
+                    onChange={(e) => {
+                      !e.target.value &&
+                        handleMakeParams("cost_per_month__range", null);
+                    }}
                   />
                 </div>
               </Dropdown>

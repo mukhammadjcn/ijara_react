@@ -8,24 +8,18 @@ import {
   LocationSVG,
   HeartFilledSVG,
 } from "src/assets/icons";
-import { prettyDate } from "src/utils/index";
+import {
+  CheckApartment,
+  FindDistrict,
+  FindMetro,
+  FindRegion,
+  prettyDate,
+} from "src/utils/index";
 import { Link } from "react-router-dom";
 import { metroList } from "src/server/Host";
 
 function Card({ data }: any) {
   const [liked, setLiked] = useState(false);
-
-  // Find metro
-  const FindMetro = (id: number) => {
-    if (metroList.length > 0) {
-      return metroList.find((item: any) => item.id == id)["name"];
-    }
-  };
-
-  // Check apartmen type
-  const CheckApartment = (key: any) => {
-    return key == "AP" ? "Kvartira" : key == "CY" ? "Hovli" : "Xona";
-  };
 
   if (data) {
     return (
@@ -80,7 +74,10 @@ function Card({ data }: any) {
           </div>
           <div className="location flex">
             <LocationSVG />
-            <span>Toshkent, Yunusobod tumani</span>
+            <span>
+              {FindRegion(data.region)},{" "}
+              {FindDistrict(data.region, data.district)}
+            </span>
           </div>
         </div>
       </div>

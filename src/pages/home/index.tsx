@@ -1,18 +1,49 @@
 import React, { useEffect, useState } from "react";
 import AOS from "aos";
-import { Select, Tabs } from "antd";
+import { Dropdown, Input, Select, Slider, Tabs } from "antd";
 import Card from "src/components/home/card";
 import SliderMulti from "src/components/slider/SliderMulti";
 import { CatchError } from "src/utils/index";
 import { GetAdvertsListConfig } from "src/server/config/Urls";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Header from "src/components/header";
 import Footer from "src/components/footer";
+import { metroList, regionsList } from "src/server/Host";
 
 function HomePage() {
-  const { Option } = Select;
   const { TabPane } = Tabs;
+  const { Option } = Select;
+  const navigate = useNavigate();
+  const [url, setUrl] = useState("");
+  const [price, setPrice] = useState<any>([]);
+  const [showMetro, setShowMetro] = useState(false);
+  const [showRegions, setShowRegions] = useState(false);
+  const [districts, setDistricts] = useState<any>([]);
   const [adverts, setAdverts] = useState([null, null, null, null]);
+
+  const handleMakeParams = (key: any, value: any) => {
+    let urlParams = new URLSearchParams(url);
+    if (value) {
+      if (urlParams.has(key)) urlParams.set(key, value);
+      else urlParams.append(key, value);
+    } else {
+      urlParams.delete(key);
+    }
+    setUrl(urlParams.toString());
+    console.log(urlParams.toString());
+  };
+  const handleRegion = (id: number) => {
+    if (id) {
+      setDistricts(regionsList.find((item: any) => item.id == id)?.districts);
+    } else {
+      setDistricts(null);
+      handleMakeParams("district", "");
+    }
+    handleMakeParams("region", id);
+  };
+  const handleDistrict = (id: number) => {
+    handleMakeParams("district", id);
+  };
 
   // Get adverts list
   const GetAdverts = async () => {
@@ -37,37 +68,116 @@ function HomePage() {
         {/* Intro section */}
         <div className="home__intro">
           <div className="container">
-            <h2 className="title">Talabalar turar joyi yagona portali!</h2>
+            <h2 className="title">
+              Talabalar uchun ijaraga turar joy izlash portali !
+            </h2>
             <div className="home__search flex">
-              <Select placeholder="Viloyatni tanlang" allowClear size="large">
-                <Option value="jack">Andijon viloyati</Option>
-                <Option value="lucy">Buxoro viloyati</Option>
-                <Option value="Yiminghe">Jizzax viloyati</Option>
+              {/* Viloyat */}
+              <Select
+                allowClear
+                size="large"
+                onChange={handleRegion}
+                placeholder="Viloyatni tanlang"
+              >
+                {regionsList?.length > 0 &&
+                  regionsList.map((item: any) => (
+                    <Option key={item.id} value={item.id}>
+                      {item.name}
+                    </Option>
+                  ))}
               </Select>
-              <Select placeholder="Tumanni tanlang" allowClear size="large">
-                <Option value="jack">Vobkent</Option>
-                <Option value="lucy">Gazli</Option>
-                <Option value="Yiminghe">Olot</Option>
+
+              {/* Tuman */}
+              <Select
+                allowClear
+                size="large"
+                onChange={handleDistrict}
+                placeholder="Tumanni tanlang"
+              >
+                {districts?.length > 0 &&
+                  districts.map((item: any) => (
+                    <Option key={item.id} value={item.id}>
+                      {item.name}
+                    </Option>
+                  ))}
               </Select>
-              <Select placeholder="Xonalar soni" allowClear size="large">
-                <Option value="jack">1</Option>
-                <Option value="lucy">2</Option>
-                <Option value="Yiminghe">3</Option>
+
+              {/* Xonalar soni */}
+              <Select
+                allowClear
+                size="large"
+                mode="multiple"
+                placeholder="Xonalar soni"
+                onChange={(val) => {
+                  handleMakeParams("number_of_rooms__in", val.join(","));
+                }}
+              >
+                <Option value="1">1</Option>
+                <Option value="2">2</Option>
+                <Option value="3">3</Option>
+                <Option value="4">4</Option>
+                <Option value="5">5</Option>
               </Select>
-              <Select placeholder="Narxi" allowClear size="large">
-                <Option value="jack">100$ - 200$</Option>
-                <Option value="lucy">200$ - 300$</Option>
-                <Option value="luzcy">300$ - 400$</Option>
-                <Option value="luccy">400$ - 500$</Option>
-                <Option value="luxcy">500$+</Option>
-              </Select>
-              <Select placeholder="Radius" allowClear size="large">
-                <Option value="jack">1km - 5km</Option>
-                <Option value="jacck">5km - 10km</Option>
-                <Option value="jacsk">10km - 15km</Option>
-                <Option value="jacwk">15km+</Option>
-              </Select>
-              <button>Qidirmoq</button>
+
+              {/* Narxi */}
+              <div style={{ width: 300 }}>
+                <Dropdown
+                  overlay={
+                    <div className="search__slider">
+                      <Slider
+                        range
+                        min={0}
+                        max={10000000}
+                        tipFormatter={(val) => `${val} so'm`}
+                        defaultValue={[0, 5000000]}
+                        onAfterChange={(val) => {
+                          setPrice(val);
+                          handleMakeParams(
+                            "cost_per_month__range",
+                            val.join(",")
+                          );
+                        }}
+                      />
+                    </div>
+                  }
+                  trigger={["click"]}
+                >
+                  <div className="flex">
+                    <Input
+                      allowClear
+                      size="large"
+                      placeholder="100000 dan"
+                      value={price[0] || null}
+                      style={{ width: 140, flexShrink: 0 }}
+                      onChange={(e) => {
+                        !e.target.value &&
+                          handleMakeParams("cost_per_month__range", null);
+                        !e.target.value && setPrice([]);
+                      }}
+                    />
+                    <Input
+                      allowClear
+                      size="large"
+                      placeholder="100000 dan"
+                      value={price[1] || null}
+                      style={{ width: 140, flexShrink: 0 }}
+                      onChange={(e) => {
+                        !e.target.value &&
+                          handleMakeParams("cost_per_month__range", null);
+                        !e.target.value && setPrice([]);
+                      }}
+                    />
+                  </div>
+                </Dropdown>
+              </div>
+
+              <button
+                onClick={() =>
+                  navigate(`/search${url.length > 1 ? "?" + url : ""}`)
+                }
+              >
+                Qidirish
+              </button>
             </div>
           </div>
         </div>
@@ -126,20 +236,34 @@ function HomePage() {
                 <h4>Ijaraga beriladigan kvartiralar</h4>
                 <ul>
                   <li className="flex">
-                    <span>1- xonalilar</span>
-                    <Link to={"/search"}>Hammasini ko‘rish</Link>
+                    <span>1 - xonalilar</span>
+                    <Link to={"/search?number_of_rooms__in=1"}>
+                      Hammasini ko‘rish
+                    </Link>
                   </li>
                   <li className="flex">
-                    <span>1- xonalilar</span>
-                    <Link to={"/search"}>Hammasini ko‘rish</Link>
+                    <span>2 - xonalilar</span>
+                    <Link to={"/search?number_of_rooms__in=2"}>
+                      Hammasini ko‘rish
+                    </Link>
                   </li>
                   <li className="flex">
-                    <span>1- xonalilar</span>
-                    <Link to={"/search"}>Hammasini ko‘rish</Link>
+                    <span>3 - xonalilar</span>
+                    <Link to={"/search?number_of_rooms__in=3"}>
+                      Hammasini ko‘rish
+                    </Link>
                   </li>
                   <li className="flex">
-                    <span>1- xonalilar</span>
-                    <Link to={"/search"}>Hammasini ko‘rish</Link>
+                    <span>4 - xonalilar</span>
+                    <Link to={"/search?number_of_rooms__in=4"}>
+                      Hammasini ko‘rish
+                    </Link>
+                  </li>
+                  <li className="flex">
+                    <span>5 - xonalilar</span>
+                    <Link to={"/search?number_of_rooms__in=5"}>
+                      Hammasini ko‘rish
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -147,11 +271,21 @@ function HomePage() {
                 <h4>Ijaraga beriladigan kvartiralar</h4>
                 <div className="flex">
                   <ul>
-                    <li>1 so‘rov</li>
-                    <li>1 so‘rov</li>
-                    <li>1 so‘rov</li>
-                    <li>1 so‘rov</li>
-                    <li>1 so‘rov</li>
+                    <li className="flex">
+                      <Link to={"/search?region=17"}>1 so‘rov</Link>
+                    </li>
+                    <li className="flex">
+                      <Link to={"/search?region=16"}>2 so‘rov</Link>
+                    </li>
+                    <li className="flex">
+                      <Link to={"/search?region=15"}>3 so‘rov</Link>
+                    </li>
+                    <li className="flex">
+                      <Link to={"/search?region=14"}>4 so‘rov</Link>
+                    </li>
+                    <li className="flex">
+                      <Link to={"/search?region=13"}>5 so‘rov</Link>
+                    </li>
                   </ul>
                   <div className="">
                     <img
@@ -217,34 +351,33 @@ function HomePage() {
             <h3>Metroga yaqin kvartiralar</h3>
             <div className="home__nearby--wrapper">
               <div className="flex">
-                <Link to={"/search"} className="home__nearby--item">
-                  Chilonzor
-                </Link>
-                <Link to={""} className="home__nearby--item">
-                  Yunus rajabiy
-                </Link>
-                <Link to={""} className="home__nearby--item">
-                  Buyuk ipak yo’li
-                </Link>
-                <Link to={""} className="home__nearby--item">
-                  Bodomzor
-                </Link>
-                <Link to={""} className="home__nearby--item">
-                  Mirzo Ulug’bek
-                </Link>
-                <Link to={""} className="home__nearby--item">
-                  Oybek
-                </Link>
-                <Link to={""} className="home__nearby--item">
-                  Yunsobot
-                </Link>
-                <Link to={""} className="home__nearby--item">
-                  Shahriston
-                </Link>
+                {showMetro
+                  ? metroList.map((item: any) => (
+                      <Link
+                        to={`/search?near_metro=${item.id}`}
+                        className="home__nearby--item"
+                      >
+                        {item.name}
+                      </Link>
+                    ))
+                  : metroList.slice(0, 8).map((item: any) => (
+                      <Link
+                        to={`/search?near_metro=${item.id}`}
+                        className="home__nearby--item"
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
               </div>
-              <Link to={""} className="home__nearby--all">
-                Hammasini ko'rish
-              </Link>
+              {!showMetro && (
+                <Link
+                  to={""}
+                  className="home__nearby--all"
+                  onClick={() => setShowMetro(true)}
+                >
+                  Hammasini ko'rish
+                </Link>
+              )}
             </div>
           </section>
 
@@ -253,34 +386,33 @@ function HomePage() {
             <h3>Viloyatlardagi kvartiralar</h3>
             <div className="home__nearby--wrapper">
               <div className="flex">
-                <Link to={""} className="home__nearby--item">
-                  Buxoro
-                </Link>
-                <Link to={""} className="home__nearby--item">
-                  Samarqand
-                </Link>
-                <Link to={""} className="home__nearby--item">
-                  Toshkent
-                </Link>
-                <Link to={""} className="home__nearby--item">
-                  Namangan
-                </Link>
-                <Link to={""} className="home__nearby--item">
-                  Navoiy
-                </Link>
-                <Link to={""} className="home__nearby--item">
-                  Surxandaryo
-                </Link>
-                <Link to={""} className="home__nearby--item">
-                  Andijon
-                </Link>
-                <Link to={""} className="home__nearby--item">
-                  Jizzax
-                </Link>
+                {showRegions
+                  ? regionsList.map((item: any) => (
+                      <Link
+                        to={`/search?near_metro=${item.id}`}
+                        className="home__nearby--item"
+                      >
+                        {item.name}
+                      </Link>
+                    ))
+                  : regionsList.slice(0, 8).map((item: any) => (
+                      <Link
+                        to={`/search?near_metro=${item.id}`}
+                        className="home__nearby--item"
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
               </div>
-              <Link to={""} className="home__nearby--all">
-                Hammasini ko'rish
-              </Link>
+              {!showRegions && (
+                <Link
+                  to={""}
+                  className="home__nearby--all"
+                  onClick={() => setShowRegions(true)}
+                >
+                  Hammasini ko'rish
+                </Link>
+              )}
             </div>
           </section>
 
@@ -293,3 +425,6 @@ function HomePage() {
 }
 
 export default HomePage;
+function useRouter() {
+  throw new Error("Function not implemented.");
+}
