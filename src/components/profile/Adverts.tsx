@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Tabs } from "antd";
 import { CatchError } from "src/utils/index";
-import { GetAdvertsListConfig } from "src/server/config/Urls";
+import { MyAdvertsConfig } from "src/server/config/Urls";
 import HorizontalCard from "src/components/home/horizontalCard";
 import NoData from "../animation/NoData";
+import { useAppSelector } from "src/hooks/index";
 
 function Adverts() {
   const { TabPane } = Tabs;
   const [status, setStatus] = useState("active");
+  const user = useAppSelector((state) => state.Login.user);
   const [adverts, setAdverts] = useState([null, null, null, null]);
 
   // Get adverts list
   const GetAdverts = async (status: any) => {
     try {
-      const { data } = await GetAdvertsListConfig(`?status=${status}`);
-      setAdverts(data.results);
+      const { data } = await MyAdvertsConfig(status);
+      setAdverts(data);
+      console.log(data);
     } catch (error) {
       CatchError(error);
     }
@@ -31,7 +34,7 @@ function Adverts() {
       onChange={(val) => setStatus(val)}
     >
       {/* Active adverts */}
-      <TabPane tab="Faol (2)" key="active">
+      <TabPane tab={`Faol (${user.ad_count.active})`} key="active">
         {adverts.length > 1 ? (
           adverts.map((elem, index) => (
             <HorizontalCard key={index} data={elem} />
@@ -42,7 +45,7 @@ function Adverts() {
       </TabPane>
 
       {/* Waiting adverts */}
-      <TabPane tab="Kutayotgan (4)" key="waiting">
+      <TabPane tab={`Kutayotgan (${user.ad_count.waiting})`} key="waiting">
         {adverts.length > 1 ? (
           adverts.map((elem, index) => (
             <HorizontalCard key={index} data={elem} />
@@ -53,7 +56,7 @@ function Adverts() {
       </TabPane>
 
       {/* InActive adverts */}
-      <TabPane tab="Nofaol (0)" key="inactive">
+      <TabPane tab={`Nofaol (${user.ad_count.inactive})`} key="inactive">
         {adverts.length > 1 ? (
           adverts.map((elem, index) => (
             <HorizontalCard key={index} data={elem} />
@@ -64,7 +67,7 @@ function Adverts() {
       </TabPane>
 
       {/* Rejected adverts */}
-      <TabPane tab=" Rad etilgan (5)" key="rejected">
+      <TabPane tab={`Rad etilgan (${user.ad_count.rejected})`} key="rejected">
         {adverts.length > 1 ? (
           adverts.map((elem, index) => (
             <HorizontalCard key={index} data={elem} />

@@ -10,11 +10,13 @@ import {
   UzSVG,
 } from "src/assets/icons";
 import { Link, useNavigate, useRoutes } from "react-router-dom";
+import { useAppSelector } from "src/hooks/index";
 
 export default function Header() {
   const { Option } = Select;
   const navigate = useNavigate();
-  const token = typeof window !== "undefined" && localStorage.getItem("access");
+  const token = localStorage.getItem("access");
+  const user = useAppSelector((state) => state.Login.user);
 
   return (
     <div className="header">
@@ -52,7 +54,7 @@ export default function Header() {
             ) : (
               <div className="flex item" onClick={() => navigate("/profile")}>
                 <UserSVG color={"#00a991"} />
-                <span>Abror</span>
+                <span>{user.name || user.id}</span>
               </div>
             )}
           </>

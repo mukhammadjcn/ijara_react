@@ -3,9 +3,16 @@ import { CatchError, PrettyPhone } from "src/utils/index";
 import { MaskedInput } from "antd-mask-input";
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, Form, Input, message, Modal, Upload } from "antd";
-import { EditPasswordConfig, EditUserConfig } from "src/server/config/Urls";
+import {
+  EditPasswordConfig,
+  EditUserConfig,
+  GetUserConfig,
+} from "src/server/config/Urls";
+import { useDispatch } from "react-redux";
+import { setUser } from "src/redux/slices/login";
 
 function ProfileEdit() {
+  const dispatch = useDispatch();
   const [form1] = Form.useForm();
   const [form2] = Form.useForm();
   const [form3] = Form.useForm();
@@ -25,6 +32,7 @@ function ProfileEdit() {
       await EditPasswordConfig(val);
       message.success("Muvofaqqiyatli yangilandi !");
       form1.resetFields();
+      getUser();
     } catch (error) {
       CatchError(error);
     }
@@ -38,6 +46,7 @@ function ProfileEdit() {
       });
       message.success("Muvofaqqiyatli yangilandi !");
       form2.resetFields();
+      getUser();
     } catch (error) {
       CatchError(error);
     }
@@ -45,19 +54,35 @@ function ProfileEdit() {
 
   const sendLogo = async (val: any) => {
     if (Object.keys(fileList).length > 0) {
-      // Create new formdata
-      const data = new FormData();
-      data.append("agent_name", val.name);
-      data.append("agent_logo", fileList);
+      try {
+        // Create new formdata
+        const data = new FormData();
+        data.append("agent_name", val.name);
+        data.append("agent_logo", fileList);
 
-      // Post to api
-      await EditUserConfig(data);
-      message.success("Muvofaqqiyatli yangilandi !");
-      form3.resetFields();
-      setPreviewImage("");
-      setFileList("");
+        // Post to api
+        await EditUserConfig(data);
+        message.success("Muvofaqqiyatli yangilandi !");
+
+        // Reset fields
+        form3.resetFields();
+        setPreviewImage("");
+        setFileList("");
+        getUser();
+      } catch (error) {
+        CatchError(error);
+      }
     } else {
       message.error("File ni yuklang");
+    }
+  };
+
+  const getUser = async () => {
+    try {
+      const { data } = await GetUserConfig();
+      dispatch(setUser(data));
+    } catch (error) {
+      CatchError(error);
     }
   };
 

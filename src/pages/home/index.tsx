@@ -354,6 +354,7 @@ function HomePage() {
                 {showMetro
                   ? metroList.map((item: any) => (
                       <Link
+                        key={item.id}
                         to={`/search?near_metro=${item.id}`}
                         className="home__nearby--item"
                       >
@@ -362,6 +363,7 @@ function HomePage() {
                     ))
                   : metroList.slice(0, 8).map((item: any) => (
                       <Link
+                        key={item.id}
                         to={`/search?near_metro=${item.id}`}
                         className="home__nearby--item"
                       >
@@ -389,6 +391,7 @@ function HomePage() {
                 {showRegions
                   ? regionsList.map((item: any) => (
                       <Link
+                        key={item.id}
                         to={`/search?near_metro=${item.id}`}
                         className="home__nearby--item"
                       >
@@ -397,6 +400,7 @@ function HomePage() {
                     ))
                   : regionsList.slice(0, 8).map((item: any) => (
                       <Link
+                        key={item.id}
                         to={`/search?near_metro=${item.id}`}
                         className="home__nearby--item"
                       >

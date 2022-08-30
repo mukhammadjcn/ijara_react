@@ -65,6 +65,9 @@ export const GetAdvertsConfig = (params = "") => {
 export const GetFavoritesConfig = () => {
   return GetFunc(`/users/favorites/`);
 };
+export const MyAdvertsConfig = (status) => {
+  return GetFunc(`/users/ads/?status=${status}`);
+};
 export const MyFavoritesConfig = () => {
   return GetFunc(`/users/favorites/`);
 };

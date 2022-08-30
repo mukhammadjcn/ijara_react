@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { message } from "antd";
 import {
   AdvertSVG,
@@ -11,17 +11,36 @@ import {
 import Adverts from "src/components/profile/Adverts";
 import ProfileEdit from "src/components/profile/ProfileEdit";
 import SavedAdverts from "src/components/profile/SavedAdverts";
-import { useNavigate, useRoutes } from "react-router-dom";
 import Header from "src/components/header";
 import Footer from "src/components/footer";
+import { GetUserConfig } from "src/server/config/Urls";
+import { CatchError } from "src/utils/index";
+import { useAppDispatch, useAppSelector } from "src/hooks/index";
+import { setUser } from "src/redux/slices/login";
 
 function Profile() {
+  const user = useAppSelector((state) => state.Login.user);
+  const dispatch = useAppDispatch();
   const [section, setSection] = useState(1);
 
   const Logout = () => {
     localStorage.removeItem("access");
     window.location.href = "/";
   };
+
+  const getUser = async () => {
+    try {
+      const { data } = await GetUserConfig();
+      dispatch(setUser(data));
+    } catch (error) {
+      CatchError(error);
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
   return (
     <>
       <Header />
@@ -31,8 +50,8 @@ function Profile() {
             <div className="profile__user flex">
               <div className="img">A</div>
               <div>
-                <h2>Abror Askarov</h2>
-                <p>ID 1234567</p>
+                <h2>{user.name}</h2>
+                <p>ID {user.id}</p>
               </div>
             </div>
             <div className="profile__nav">
@@ -42,7 +61,7 @@ function Profile() {
               >
                 <AdvertSVG />
                 <span>E’lonlar</span>
-                <div className="number">4</div>
+                {/* <div className="number">4</div> */}
               </div>
               <div
                 className={section === 2 ? "flex active" : "flex"}
@@ -50,7 +69,7 @@ function Profile() {
               >
                 <ProfileSVG />
                 <span>Profil</span>
-                <div className="number">4</div>
+                {/* <div className="number">4</div> */}
               </div>
               <div
                 className={section === 3 ? "flex active" : "flex"}
@@ -58,7 +77,7 @@ function Profile() {
               >
                 <HeartFilledSVG color="#4F5E71" />
                 <span>Saqlanganlar</span>
-                <div className="number">4</div>
+                {/* <div className="number">4</div> */}
               </div>
               <div
                 className={section === 4 ? "flex active" : "flex"}
@@ -67,7 +86,7 @@ function Profile() {
                 <MessageSVG />
 
                 <span>Xabarlar</span>
-                <div className="number">4</div>
+                {/* <div className="number">4</div> */}
               </div>
               <div
                 className={section === 5 ? "flex active" : "flex"}
@@ -75,7 +94,7 @@ function Profile() {
               >
                 <AlertSVG />
                 <span>Shikoyatlar</span>
-                <div className="number">4</div>
+                {/* <div className="number">4</div> */}
               </div>
             </div>
             <div className="profile__logout" onClick={Logout}>

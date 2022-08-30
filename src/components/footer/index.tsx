@@ -42,14 +42,6 @@ function Footer() {
             <Link to={"#"}>Sherik izlayapmiz</Link>
             <Link to={"#"}>Mintaqalar xaritasi</Link>
           </div>
-          <div className="footer__nav">
-            <h3>Platforma</h3>
-            <Link to={"#"}>Platforma haqida</Link>
-            <Link to={"#"}>Erkaklarga uy topish</Link>
-            <Link to={"#"}>Ayollarga uy topish</Link>
-            <Link to={"#"}>Sherik izlayapmiz</Link>
-            <Link to={"#"}>Mintaqalar xaritasi</Link>
-          </div>
         </div>
         <div className="footer__bottom flex">
           <span>© Ijara.edu.uz 2022</span>

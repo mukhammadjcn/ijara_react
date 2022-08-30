@@ -3,7 +3,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 const initialState = {
   all: {},
   phone: 0,
-  user: {},
+  user: {
+    agent_logo: "",
+    agent_name: "",
+    id: "",
+    name: "",
+    ad_count: { active: 0, inactive: 0, waiting: 0, rejected: 0 },
+  },
   isApplied: false,
   openModal: false,
 };
