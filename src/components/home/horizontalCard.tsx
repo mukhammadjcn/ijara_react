@@ -10,7 +10,7 @@ import {
   LocationSVG,
   HeartFilledSVG,
 } from "src/assets/icons";
-import { Skeleton } from "antd";
+import { message, Skeleton } from "antd";
 import {
   FindDistrict,
   FindMetro,
@@ -84,9 +84,18 @@ function HorizontalCard({ data = null, stat = true }: any) {
                 </div> */}
               </div>
               <div className="action">
-                <a>Yakunlash</a>
-                <a>O‘chirish</a>
-                <button className="tahrirlash">Tahrirlash</button>
+                <a onClick={() => message.info("Ishlab chiqish jarayonida")}>
+                  Yakunlash
+                </a>
+                <a onClick={() => message.info("Ishlab chiqish jarayonida")}>
+                  O‘chirish
+                </a>
+                <button
+                  className="tahrirlash"
+                  onClick={() => message.info("Ishlab chiqish jarayonida")}
+                >
+                  Tahrirlash
+                </button>
               </div>
             </div>
           )}
