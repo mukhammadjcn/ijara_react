@@ -41,7 +41,7 @@ export default function Header() {
               <span>Ingliz</span>
             </Option>
           </Select> */}
-          <div className="flex item">
+          <div className="flex item" onClick={() => navigate("/profile")}>
             <HeartSVG />
             <span>Sevimli</span>
           </div>

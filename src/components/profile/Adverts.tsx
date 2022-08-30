@@ -17,7 +17,6 @@ function Adverts() {
     try {
       const { data } = await MyAdvertsConfig(status);
       setAdverts(data);
-      console.log(data);
     } catch (error) {
       CatchError(error);
     }
@@ -29,13 +28,13 @@ function Adverts() {
 
   return (
     <Tabs
-      defaultActiveKey="1"
+      defaultActiveKey="active"
       className="profile__adverts"
       onChange={(val) => setStatus(val)}
     >
       {/* Active adverts */}
       <TabPane tab={`Faol (${user.ad_count.active})`} key="active">
-        {adverts.length > 1 ? (
+        {adverts.length > 0 ? (
           adverts.map((elem, index) => (
             <HorizontalCard key={index} data={elem} />
           ))
@@ -46,7 +45,7 @@ function Adverts() {
 
       {/* Waiting adverts */}
       <TabPane tab={`Kutayotgan (${user.ad_count.waiting})`} key="waiting">
-        {adverts.length > 1 ? (
+        {adverts.length > 0 ? (
           adverts.map((elem, index) => (
             <HorizontalCard key={index} data={elem} />
           ))
@@ -57,7 +56,7 @@ function Adverts() {
 
       {/* InActive adverts */}
       <TabPane tab={`Nofaol (${user.ad_count.inactive})`} key="inactive">
-        {adverts.length > 1 ? (
+        {adverts.length > 0 ? (
           adverts.map((elem, index) => (
             <HorizontalCard key={index} data={elem} />
           ))
@@ -68,7 +67,7 @@ function Adverts() {
 
       {/* Rejected adverts */}
       <TabPane tab={`Rad etilgan (${user.ad_count.rejected})`} key="rejected">
-        {adverts.length > 1 ? (
+        {adverts.length > 0 ? (
           adverts.map((elem, index) => (
             <HorizontalCard key={index} data={elem} />
           ))
