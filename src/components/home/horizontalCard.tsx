@@ -10,7 +10,7 @@ import {
   LocationSVG,
   HeartFilledSVG,
 } from "src/assets/icons";
-import { message, Skeleton } from "antd";
+import { message, Skeleton, Statistic } from "antd";
 import {
   FindDistrict,
   FindMetro,
@@ -33,7 +33,15 @@ function HorizontalCard({ data = null, stat = true }: any) {
                 Ijaraga {data?.number_of_rooms}-xonali kvartira,{" "}
                 {data.full_area} м²
               </h2>
-              <h2>{data.cost_per_month} so‘m</h2>
+              <h2 className="price">
+                <Statistic
+                  title=""
+                  groupSeparator={" "}
+                  value={data.cost_per_month}
+                  style={{ display: "inline-block" }}
+                />{" "}
+                so‘m
+              </h2>
             </div>
           </Link>
           <div className="info">

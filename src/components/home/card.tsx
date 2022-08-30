@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Skeleton } from "antd";
+import { Skeleton, Statistic } from "antd";
 import {
   BusSVG,
   WalkSVG,
@@ -43,7 +43,15 @@ function Card({ data }: any) {
         </div>
         <div className="card__info">
           <Link to={`/search/${data.deep_link}`}>
-            <h4 className="price">{data.cost_per_month} so‘m</h4>
+            <h4 className="price">
+              <Statistic
+                title=""
+                groupSeparator={" "}
+                value={data.cost_per_month}
+                style={{ display: "inline-block" }}
+              />{" "}
+              so‘m
+            </h4>
           </Link>
           {data.near_metro ? (
             <div className="transport flex">
