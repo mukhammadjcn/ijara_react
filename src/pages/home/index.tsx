@@ -302,7 +302,7 @@ function HomePage() {
 
           {/* Ommabop */}
           <section className="home__featured">
-            <h3>Ommabob</h3>
+            <h3>Ommabop</h3>
             <div className="flex">
               <div className="">
                 <img
@@ -313,8 +313,8 @@ function HomePage() {
                 />
                 <h4>Radius orqali qidiruv</h4>
                 <p>
-                  Radius qiduruv bo‘limi orqali siz o’zingizga yaqin
-                  bo‘lgane’lonlarni tez va oson topishingiz mumkin!
+                  Radius qidiruv bo‘limi orqali siz o’zingizga yaqin bo‘lgan
+                  e’lonlarni tez va oson topishingiz mumkin!
                 </p>
               </div>
               <div className="">
@@ -324,10 +324,10 @@ function HomePage() {
                   height={120}
                   alt="fetaured"
                 />
-                <h4>Shaxshiy kabinetga kirish</h4>
+                <h4>Shaxsiy kabinetga kirish</h4>
                 <p>
                   Shaxsiy kabinetga kirish orqali siz xabarlar sevimli e’lonlar
-                  va sozlamarni boshqarishingiz mumkin.
+                  va sozlamalarni boshqarishingiz mumkin.
                 </p>
               </div>
               <div className="">
