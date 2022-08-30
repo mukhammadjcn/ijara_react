@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Select } from "antd";
 import {
   HeartSVG,
@@ -10,13 +10,32 @@ import {
   UzSVG,
 } from "src/assets/icons";
 import { Link, useNavigate, useRoutes } from "react-router-dom";
-import { useAppSelector } from "src/hooks/index";
+import { useAppDispatch, useAppSelector } from "src/hooks/index";
+import { GetUserConfig } from "src/server/config/Urls";
+import { setUser } from "src/redux/slices/login";
+import { CatchError } from "src/utils/index";
 
 export default function Header() {
   const { Option } = Select;
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const token = localStorage.getItem("access");
   const user = useAppSelector((state) => state.Login.user);
+
+  const getUser = async () => {
+    if (token && !user.id) {
+      try {
+        const { data } = await GetUserConfig();
+        dispatch(setUser(data));
+      } catch (error) {
+        CatchError(error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   return (
     <div className="header">

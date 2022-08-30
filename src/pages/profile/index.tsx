@@ -13,33 +13,16 @@ import ProfileEdit from "src/components/profile/ProfileEdit";
 import SavedAdverts from "src/components/profile/SavedAdverts";
 import Header from "src/components/header";
 import Footer from "src/components/footer";
-import { GetUserConfig } from "src/server/config/Urls";
-import { CatchError } from "src/utils/index";
-import { useAppDispatch, useAppSelector } from "src/hooks/index";
-import { setUser } from "src/redux/slices/login";
+import { useAppSelector } from "src/hooks/index";
 
 function Profile() {
   const user = useAppSelector((state) => state.Login.user);
-  const dispatch = useAppDispatch();
   const [section, setSection] = useState(1);
 
   const Logout = () => {
     localStorage.removeItem("access");
     window.location.href = "/";
   };
-
-  const getUser = async () => {
-    try {
-      const { data } = await GetUserConfig();
-      dispatch(setUser(data));
-    } catch (error) {
-      CatchError(error);
-    }
-  };
-
-  useEffect(() => {
-    getUser();
-  }, []);
 
   return (
     <>
