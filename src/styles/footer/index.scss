@@ -43,3 +43,33 @@
     border-top: 1px solid #e8edf1;
   }
 }
+
+@media (max-width: 800px) {
+  .footer {
+    &__top {
+      gap: 64px;
+      flex-wrap: wrap;
+      & > div:not(:first-child) {
+        flex-grow: 1;
+      }
+    }
+    &__bottom {
+      flex-wrap: wrap;
+      span {
+        order: 2;
+      }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .footer {
+    &__logo .flex {
+      margin-top: 32px;
+    }
+    &__top {
+      gap: 24px;
+      flex-direction: column;
+    }
+  }
+}

@@ -341,6 +341,10 @@ function SearchPage() {
                     ))}
                 </Select>
               </div>
+
+              <span className="clear-filter" onClick={clearFilter}>
+                Filterlarni o'chirish
+              </span>
             </div>
           </div>
           <div className="search__adverts">
@@ -370,7 +374,7 @@ function SearchPage() {
                   />
                 </div>
               </TabPane>
-              <TabPane tab="Agentlik" key="2">
+              <TabPane tab="Jismoniy shaxs" key="2">
                 {adverts.length > 1 ? (
                   adverts.map((elem, index) => (
                     <HorizontalCard key={index} stat={false} data={elem} />
@@ -395,7 +399,32 @@ function SearchPage() {
                   />
                 </div>
               </TabPane>
-              <TabPane tab="Oliy ta’lim muassasasi" key="3">
+              <TabPane tab="Agentlik" key="3">
+                {adverts.length > 1 ? (
+                  adverts.map((elem, index) => (
+                    <HorizontalCard key={index} stat={false} data={elem} />
+                  ))
+                ) : (
+                  <NoData />
+                )}
+
+                {/* Pagination */}
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Pagination
+                    total={total}
+                    pageSize={12}
+                    current={+current}
+                    onChange={setPage}
+                  />
+                </div>
+              </TabPane>
+              <TabPane tab="Oliy ta’lim muassasasi" key="4">
                 {adverts.length > 1 ? (
                   adverts.map((elem, index) => (
                     <HorizontalCard key={index} stat={false} data={elem} />

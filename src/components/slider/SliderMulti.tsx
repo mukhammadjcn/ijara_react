@@ -9,10 +9,10 @@ function SliderMulti({ data }: { data: any }) {
     arrows: true,
     slidesToShow: 4,
     initialSlide: 0,
-    centerPadding: "24px",
+    centerPadding: "0px",
     responsive: [
       {
-        breakpoint: 1380,
+        breakpoint: 1400,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
