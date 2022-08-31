@@ -212,10 +212,11 @@ function SearchPage() {
                   <div className="search__slider">
                     <Slider
                       range
-                      min={0}
+                      min={100000}
+                      step={100000}
                       max={10000000}
                       tipFormatter={(val) => `${val} so'm`}
-                      defaultValue={[0, 5000000]}
+                      defaultValue={[1000000, 5000000]}
                       onAfterChange={(val) =>
                         handleMakeParams("cost_per_month__range", val.join(","))
                       }

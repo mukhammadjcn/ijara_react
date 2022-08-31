@@ -542,9 +542,16 @@
 
     &__img {
       width: 100%;
+      .ant-skeleton {
+        width: 100%;
+        .ant-skeleton-image {
+          width: 100% !important;
+        }
+      }
     }
 
     &__info {
+      width: 100%;
       .title {
         flex-direction: column;
         align-items: flex-start;
@@ -560,6 +567,9 @@
         .price {
           order: 1;
         }
+      }
+      .ant-skeleton {
+        margin-top: 16px;
       }
     }
   }
