@@ -94,6 +94,7 @@
     margin-top: 12px;
   }
   &__main {
+    width: 100%;
     padding: 40px 0;
     flex-grow: 1;
     .horizontal-card {
@@ -141,5 +142,35 @@
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
+  }
+}
+
+@media (max-width: 1180px) {
+  .profile {
+    .container {
+      flex-wrap: wrap;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .profile {
+    .container {
+      gap: 0;
+    }
+    &__sidebar {
+      width: 100%;
+      padding-right: 0;
+      border-right: 0;
+    }
+    &__edit {
+      section {
+        width: 100%;
+        padding: 20px;
+        h2 {
+          font-size: 20px;
+        }
+      }
+    }
   }
 }

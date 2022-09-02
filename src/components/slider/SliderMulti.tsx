@@ -7,7 +7,7 @@ function SliderMulti({ data }: { data: any }) {
   const settings = {
     speed: 500,
     arrows: true,
-    slidesToShow: 4,
+    slidesToShow: 3,
     initialSlide: 0,
     centerPadding: "0px",
     responsive: [

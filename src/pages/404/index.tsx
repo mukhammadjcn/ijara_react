@@ -20,10 +20,10 @@ function NotFound() {
         <Result
           status="404"
           title="404"
-          subTitle="Sorry, the page you visited does not exist."
+          subTitle="Kechirasiz, siz mavjud bo'lmagan sahifaga kirib qoldingiz !"
           extra={
             <Button type="primary" onClick={() => navigate("/")}>
-              Back Home
+              Asosiy sahifaga qaytish
             </Button>
           }
         />

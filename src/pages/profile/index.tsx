@@ -31,9 +31,11 @@ function Profile() {
         <div className="container">
           <div className="profile__sidebar">
             <div className="profile__user flex">
-              <div className="img">A</div>
+              <div className="img">
+                {user?.name ? user?.name.slice(0, 1) : "?"}
+              </div>
               <div>
-                <h2>{user.name}</h2>
+                <h4>{user?.name || user?.id}</h4>
                 <p>ID {user.id}</p>
               </div>
             </div>
