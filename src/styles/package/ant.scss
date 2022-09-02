@@ -65,6 +65,23 @@
   color: #697d95;
 }
 
+.ant-statistic {
+  font-size: inherit;
+  color: inherit;
+  font-family: inherit;
+  font-weight: inherit;
+  font-style: inherit;
+  font-variant: inherit;
+  &-content {
+    font-size: inherit;
+    color: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    font-style: inherit;
+    font-variant: inherit;
+  }
+}
+
 // ------------------------------------------------------------------------------
 /********************************************
 	BREAKPOINT WIDTHS

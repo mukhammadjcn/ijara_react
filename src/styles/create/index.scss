@@ -52,6 +52,14 @@
           }
         }
       }
+      &__adverts-map {
+        .map > div {
+          width: 100% !important;
+          .ymaps-2-1-79-map {
+            width: 100% !important;
+          }
+        }
+      }
       .ant-form {
         gap: 16px;
         display: flex;
@@ -117,6 +125,107 @@
       line-height: 28px;
       color: #252a31;
       margin-bottom: 24px;
+    }
+  }
+}
+
+@media (max-width: 1080px) {
+  .create-advert {
+    &__main {
+      .sidebar {
+        display: none;
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .create-advert {
+    &__main {
+      .main {
+        section {
+          padding: 20px;
+
+          .title {
+            font-weight: 600;
+            font-size: 20px;
+            line-height: 28px;
+          }
+          .ant-radio-button-wrapper:first-child,
+          .ant-radio-button-wrapper:last-child {
+            border-radius: initial;
+          }
+        }
+        &__adverts-type {
+          .flex {
+            flex-direction: column;
+            gap: 0;
+            & > div {
+              width: 100% !important;
+            }
+          }
+
+          .ant-form-item {
+            margin-top: 8px !important;
+          }
+        }
+        &__adverts-parametrlar {
+          .ant-form-item {
+            margin-top: 8px !important;
+          }
+          .paramertlar {
+            flex-direction: column;
+            & > div {
+              width: 100% !important;
+            }
+          }
+        }
+        &__adverts-qoshimcha .paramertlar > label {
+          width: 45%;
+        }
+        &__adverts-narx {
+          .ant-form-item {
+            margin-top: 8px !important;
+          }
+          .flex {
+            flex-wrap: wrap;
+            .ant-checkbox-wrapper {
+              flex-shrink: 0;
+            }
+          }
+        }
+        &__adverts-about {
+          .ant-form-item {
+            margin-top: 8px !important;
+          }
+        }
+        &__adverts-phone {
+          .ant-form-item {
+            margin-top: 8px !important;
+          }
+          .flex {
+            gap: 0;
+            flex-wrap: wrap;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .create-advert {
+    &__main {
+      .main {
+        &__adverts-type,
+        &__adverts-narx {
+          .ant-radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+          }
+        }
+      }
     }
   }
 }

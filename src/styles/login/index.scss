@@ -69,3 +69,9 @@
     overflow: hidden;
   }
 }
+
+@media (max-width: 600px) {
+  .login > .ant-tabs {
+    width: 84%;
+  }
+}

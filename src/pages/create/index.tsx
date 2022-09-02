@@ -569,10 +569,10 @@ function CreateAdvert() {
                 </section>
 
                 {/* Manzil */}
-                <section>
+                <section className="main__adverts-map">
                   <h2 className="title">Manzil</h2>
                   <p>Iltimos uyingiz manzilini kartadan belgilang !</p>
-                  <div style={{ marginTop: 16 }}>
+                  <div style={{ marginTop: 16 }} className="map">
                     <SelectMap
                       setLocation={(cor: any) => setLocation(cor)}
                       location={location}

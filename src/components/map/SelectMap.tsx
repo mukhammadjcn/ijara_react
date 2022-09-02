@@ -23,7 +23,6 @@ function SelectMap({
       }}
     >
       <Map
-        width={850}
         height={500}
         onClick={(val: any) => setLocation(val.get("coords"))}
         defaultState={{ center: [41.312081, 69.279799], zoom: 14 }}

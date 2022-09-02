@@ -12,7 +12,7 @@ import {
 } from "src/assets/icons";
 import { Carousel } from "react-responsive-carousel";
 import LocationMap from "src/components/map/LocationMap";
-import { Button, message, Skeleton } from "antd";
+import { Button, message, Skeleton, Statistic } from "antd";
 import {
   CatchError,
   FindDistrict,
@@ -87,7 +87,7 @@ function SelectedAdvert() {
                 onClick={() => navigate(-1)}
               >
                 <BackSVG />
-                <span>Orqaga qaytish</span>
+                <span>Orqaga</span>
               </button>
               <button className="create-advert__back flex">
                 <ShareSVG />
@@ -107,7 +107,15 @@ function SelectedAdvert() {
                       Ijaraga {data?.number_of_rooms}-xonali kvartira,{" "}
                       {data?.full_area} м²
                     </h2>
-                    <h2>{data?.cost_per_month} so‘m</h2>
+                    <h2>
+                      <Statistic
+                        title=""
+                        groupSeparator={" "}
+                        value={data.cost_per_month}
+                        style={{ display: "inline-block" }}
+                      />{" "}
+                      so‘m
+                    </h2>
                   </div>
                   <div className="flex location">
                     <div className=" flex">
