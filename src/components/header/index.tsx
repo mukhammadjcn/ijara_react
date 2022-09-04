@@ -60,7 +60,7 @@ export default function Header() {
               <span>Ingliz</span>
             </Option>
           </Select> */}
-          <div className="flex item" onClick={() => navigate("/profile")}>
+          <div className="flex item" onClick={() => navigate("/profile/saved")}>
             <HeartSVG />
             <span>Sevimli</span>
           </div>

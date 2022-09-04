@@ -27,6 +27,9 @@ import "./styles/globals.scss";
 import { useEffect } from "react";
 import { CatchError } from "./utils";
 import { GetMetroConfig, GetRegionsConfig } from "src/server/config/Urls";
+import Adverts from "./components/profile/Adverts";
+import ProfileEdit from "./components/profile/ProfileEdit";
+import SavedAdverts from "./components/profile/SavedAdverts";
 
 function App() {
   // Get regions at first
@@ -72,7 +75,11 @@ function App() {
           <Route
             path="profile"
             element={token ? <Profile /> : <Navigate to="/login" />}
-          ></Route>
+          >
+            <Route index element={<Adverts />} />
+            <Route path="edit" element={<ProfileEdit />} />
+            <Route path="saved" element={<SavedAdverts />} />
+          </Route>
           <Route path="search">
             <Route index element={<SearchPage />} />
             <Route path=":id" element={<SinglePage />} />
