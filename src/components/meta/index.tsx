@@ -8,12 +8,12 @@ const MetaDecorator = ({ title, description, imageUrl, imageAlt }: any) => (
     <meta property="og:title" content={title} />
     <meta name="description" content={description} />
     <meta property="og:description" content={description} />
-    <meta name="author" content={description} />
     <meta name="image" property="og:image" content={imageUrl} />
+    <meta name="image" property="og:image:secure" content={imageUrl} />
     <meta
       property="og:url"
       content={
-        "https://ijara-react.vercel.app" +
+        "https://www.onlim.uz" +
         window.location.pathname +
         window.location.search
       }
