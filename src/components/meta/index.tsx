@@ -9,14 +9,7 @@ const MetaDecorator = ({ title, description, imageUrl, imageAlt }: any) => (
     <meta name="description" content={description} />
     <meta property="og:description" content={description} />
     <meta name="author" content={description} />
-    <meta
-      name="image"
-      property="og:image"
-      content={
-        "https://ijara-react.vercel.app" +
-        require("../../assets/images/intro.webp")
-      }
-    />
+    <meta name="image" property="og:image" content={imageUrl} />
     <meta
       property="og:url"
       content={

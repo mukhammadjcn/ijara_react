@@ -66,9 +66,9 @@ function HomePage() {
     <>
       <MetaDecorator
         title={`Ijara.edu.uz`}
-        description={`O‘zbekiston Respublikasi Oliy va o‘rta maxsus ta'lim vazirligi`}
-        imageAlt={`O‘zbekiston Respublikasi Oliy va o‘rta maxsus ta'lim vazirligi`}
-        imageUrl={`https://backoffice.ijara.edu.uz/media/ad_images/2022/09/04/Group_2.png`}
+        description={`Hey, this is my personal website. You can take a look at my portfolio, download my CV and see how you can contact me!`}
+        imageAlt={`Hey, this is my personal website. You can take a look at my portfolio, download my CV and see how you can contact me!`}
+        imageUrl={`https://celikk.me/images/meta/home.png`}
       />
       <Header />
       <div className="home">
