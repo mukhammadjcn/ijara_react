@@ -79,31 +79,13 @@ function SelectedAdvert() {
   if (data) {
     return (
       <>
-        {/* <MetaDecorator
+        <MetaDecorator
           title={`Ijaraga ${data?.number_of_rooms}-xonali kvartira,${" "}${
             data?.full_area
           } м²`}
           description={`Oylik to'lov: ${data.cost_per_month}, batafsil ma'lumot: ${data?.description}`}
           imageAlt={`Oylik to'lov: ${data.cost_per_month}, batafsil ma'lumot: ${data?.description}`}
           imageUrl={data.image1}
-        /> */}
-        <MetaDecorator
-          title={`Ijaraga ${data?.number_of_rooms}-xonali kvartira,${" "}${
-            data?.full_area
-          } м²`}
-          description={`350 у.е.: 350 у.е.: dacha &quot;HILTON&quot; hitek
-          oila va ulfatlar uchun 
-          4ta yotoqxona 
-          2ta zal 
-          qishgi basseyn
-          sauna finskiy
-          Bilyard futbolniy stol
-          karaoke 
-          playstation 4 stol tennis
-          terassa 
-          konditsioner wi...`}
-          imageAlt={`Oylik to'lov: ${data.cost_per_month}, batafsil ma'lumot: ${data?.description}`}
-          imageUrl={`https://apollo-olx.cdnvideo.ru:443/v1/files/mgl2gnlsigni1-UZ/image;s=1024x1280`}
         />
         <Header />
         <div className="searchID">
