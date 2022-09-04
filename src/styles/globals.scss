@@ -99,12 +99,48 @@ button {
   border: 2px solid #ffffff;
 }
 
+.targetMap {
+  text-align: center;
+  margin-bottom: 32px;
+  padding: 24px;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 500;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s ease-out;
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  background-color: #0bceb2;
+  background-image: linear-gradient(225deg, #0bceb2 0%, #257eff 100%);
+
+  background-size: 200% 200%;
+  animation: gradient 6s ease infinite;
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 100%;
+    }
+    50% {
+      background-position: 100% 0%;
+    }
+    100% {
+      background-position: 0% 100%;
+    }
+  }
+}
+
 // Import Slick styles
 @import "~slick-carousel/slick/slick.css";
 @import "~slick-carousel/slick/slick-theme.css";
 
 @import "./package/ant.scss";
 @import "./home/";
+@import "./maps/";
 @import "./header";
 @import "./login/";
 @import "./footer/";

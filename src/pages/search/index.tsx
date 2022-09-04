@@ -14,7 +14,7 @@ import HorizontalCard from "src/components/home/horizontalCard";
 import { GetAdvertsListConfig } from "src/server/config/Urls";
 import Header from "src/components/header";
 import Footer from "src/components/footer";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { metroList, regionsList } from "src/server/Host";
 import NoData from "src/components/animation/NoData";
 
@@ -22,6 +22,7 @@ function SearchPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { Option } = Select;
   const { TabPane } = Tabs;
+  const navigate = useNavigate();
   const [total, setTotal] = useState(10);
   const currentPage = searchParams.get("page");
   const [districts, setDistricts] = useState<any>([]);
@@ -153,6 +154,10 @@ function SearchPage() {
       <Header />
       <div className="search">
         <div className="container">
+          {/* Target to Map page */}
+          <div className="targetMap" onClick={() => navigate("/map")}>
+            Xarita orqali qidiruv
+          </div>
           <div className="home__search flex">
             {/* Viloyat */}
             <Select

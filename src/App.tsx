@@ -17,6 +17,7 @@ import {
   Create,
   HomePage,
   Login,
+  MapPage,
   NotFound,
   Profile,
   SearchPage,
@@ -68,6 +69,7 @@ function App() {
         <Routes>
           <Route index element={<HomePage />} />
           <Route path="login" element={<Login />} />
+          <Route path="map" element={<MapPage />} />
           <Route
             path="create"
             element={token ? <Create /> : <Navigate to="/login" />}

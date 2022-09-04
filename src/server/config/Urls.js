@@ -34,6 +34,9 @@ export const EditAdvertConfig = (id, data) => {
 export const GetAdvertsListConfig = (url = "") => {
   return GetFunc(`/announcement/ads/${url}`);
 };
+export const GetMapListConfig = (data) => {
+  return CreateFunc(`/announcement/map/`, data);
+};
 export const GetAdvertsIDConfig = (id) => {
   return GetFunc(`/announcement/ads/${id}/`);
 };
