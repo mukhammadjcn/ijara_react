@@ -9,7 +9,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Header from "src/components/header";
 import Footer from "src/components/footer";
 import { metroList, regionsList } from "src/server/Host";
-import MetaDecorator from "src/components/meta";
 
 function HomePage() {
   const { TabPane } = Tabs;
@@ -64,12 +63,6 @@ function HomePage() {
 
   return (
     <>
-      <MetaDecorator
-        title={`Ijara.edu.uz`}
-        description={`Ijara.edu.uz talabalar uchun vaqtinchalik yoki doimiy uy topish uchun mahsus platforma. Bunda talabalar o'zlariga qulay bo'lgan kvartirla va uchastkalarni topishadi. Ijara.edu.uz talabar haqida qayg'uradi !`}
-        imageAlt={`Ijara.edu.uz talabalar uchun vaqtinchalik yoki doimiy uy topish uchun mahsus platforma. Bunda talabalar o'zlariga qulay bo'lgan kvartirla va uchastkalarni topishadi. Ijara.edu.uz talabar haqida qayg'uradi !`}
-        imageUrl={`https://backoffice.ijara.edu.uz/media/ad_images/2022/09/04/Group_2.png`}
-      />
       <Header />
       <div className="home">
         {/* Intro section */}
