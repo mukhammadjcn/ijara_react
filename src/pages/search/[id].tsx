@@ -25,6 +25,7 @@ import { GetAdvertsIDConfig, PostLIkeConfig } from "src/server/config/Urls";
 import { token } from "src/server/Host";
 import Header from "src/components/header";
 import Footer from "src/components/footer";
+import MetaDecorator from "src/components/meta";
 
 function SelectedAdvert() {
   const navigate = useNavigate();
@@ -78,6 +79,14 @@ function SelectedAdvert() {
   if (data) {
     return (
       <>
+        <MetaDecorator
+          title={`Ijaraga ${data?.number_of_rooms}-xonali kvartira,${" "}${
+            data?.full_area
+          } м²`}
+          description={`Oylik to'lov: ${data.cost_per_month}, batafsil ma'lumot: ${data?.description}`}
+          imageAlt={`Oylik to'lov: ${data.cost_per_month}, batafsil ma'lumot: ${data?.description}`}
+          imageUrl={data.image1}
+        />
         <Header />
         <div className="searchID">
           <div className="container">

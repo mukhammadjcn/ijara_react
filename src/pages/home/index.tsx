@@ -9,6 +9,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Header from "src/components/header";
 import Footer from "src/components/footer";
 import { metroList, regionsList } from "src/server/Host";
+import MetaDecorator from "src/components/meta";
 
 function HomePage() {
   const { TabPane } = Tabs;
@@ -63,6 +64,12 @@ function HomePage() {
 
   return (
     <>
+      <MetaDecorator
+        title={`Ijara.edu.uz`}
+        description={`O‘zbekiston Respublikasi Oliy va o‘rta maxsus ta'lim vazirligi`}
+        imageAlt={`O‘zbekiston Respublikasi Oliy va o‘rta maxsus ta'lim vazirligi`}
+        imageUrl={`https://backoffice.ijara.edu.uz/media/ad_images/2022/09/04/Group_2.png`}
+      />
       <Header />
       <div className="home">
         {/* Intro section */}
