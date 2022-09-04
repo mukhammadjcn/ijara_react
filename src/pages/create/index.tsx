@@ -16,7 +16,7 @@ import {
 } from "antd";
 import { CatchError, PrettyPhone } from "src/utils/index";
 import SelectMap from "src/components/map/SelectMap";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { PostAdvertConfig } from "src/server/config/Urls";
 import Header from "src/components/header";
 import Footer from "src/components/footer";
@@ -34,10 +34,77 @@ function CreateAdvert() {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [previewVisible, setPreviewVisible] = useState(false);
 
+  // Section validation
+  const [type, setType] = useState(false);
+  const [images, setImages] = useState(false);
+  const [parametr, setParametr] = useState(false);
+  const [price, setPrice] = useState(false);
+  const [about, setAbout] = useState(false);
+  const [map, setMap] = useState(false);
+  const [phone, setPhone] = useState(false);
+
   const handleCancel = () => setPreviewVisible(false);
   const handlePreview = async (file: any) => {
     setPreviewImage(file.thumbUrl || (file.preview as string));
     setPreviewVisible(true);
+  };
+  const checkDone = () => {
+    const data = form.getFieldsValue();
+
+    // section 1
+    if (
+      data.profile_type &&
+      data.rent_type &&
+      data.apartment_type &&
+      data.region &&
+      data.district
+    ) {
+      setType(true);
+    } else {
+      setType(false);
+    }
+
+    // section 2
+    if (fileList.length > 0) {
+      setImages(true);
+    }
+
+    // section 3
+    if (
+      (data.number_of_rooms &&
+        data.full_area &&
+        data.live_area &&
+        data.kitchen_area &&
+        data.number_of_floors &&
+        data.ceiling_height &&
+        data.wash_room &&
+        data.floor) ||
+      data.is_furnished
+    ) {
+      setParametr(true);
+    } else {
+      setParametr(false);
+    }
+
+    // section 5
+    if (data.cost_per_month) {
+      setPrice(true);
+    } else {
+      setPrice(false);
+    }
+
+    // section 6
+    if (data.description) {
+      setAbout(true);
+    } else {
+      setAbout(false);
+    }
+
+    if (!data.phone_number.includes("_")) {
+      setPhone(true);
+    } else {
+      setPhone(false);
+    }
   };
   const uploadPicture = (val: any) => {
     if (fileList.length < 8) {
@@ -104,6 +171,12 @@ function CreateAdvert() {
     const newFileList = fileList.slice();
     newFileList.splice(index, 1);
     setFileList(newFileList);
+
+    if (newFileList.length >= 1) {
+      setImages(true);
+    } else {
+      setImages(false);
+    }
   };
 
   return (
@@ -125,6 +198,7 @@ function CreateAdvert() {
                 form={form}
                 onFinish={onFinish}
                 layout={"vertical"}
+                onChange={checkDone}
                 initialValues={{
                   is_negotiable: false,
                   have_internet: false,
@@ -145,7 +219,9 @@ function CreateAdvert() {
                   <Form.Item
                     label="Profil turi"
                     name="profile_type"
-                    rules={[{ required: true }]}
+                    rules={[
+                      { required: true, message: `Profil turini tanlang !` },
+                    ]}
                   >
                     <Radio.Group optionType="button" buttonStyle="solid">
                       <Radio value="PP"> Jismoniy shaxs </Radio>
@@ -158,7 +234,9 @@ function CreateAdvert() {
                   <Form.Item
                     label="Ijara turi"
                     name="rent_type"
-                    rules={[{ required: true }]}
+                    rules={[
+                      { required: true, message: "Ijara turini tanlang !" },
+                    ]}
                   >
                     <Radio.Group
                       optionType="button"
@@ -175,7 +253,9 @@ function CreateAdvert() {
                   <Form.Item
                     label="Mulk turi"
                     name="apartment_type"
-                    rules={[{ required: true }]}
+                    rules={[
+                      { required: true, message: "Mulk turini tanlang !" },
+                    ]}
                   >
                     <Radio.Group>
                       {!sherik && <Radio value="AP">Kavartira</Radio>}
@@ -190,7 +270,9 @@ function CreateAdvert() {
                       name="region"
                       label="Viloyatni tanlang"
                       style={{ width: "50%" }}
-                      rules={[{ required: true }]}
+                      rules={[
+                        { required: true, message: "Viloyatni tanlang !" },
+                      ]}
                     >
                       <Select
                         placeholder="Viloyatni tanlang"
@@ -216,9 +298,12 @@ function CreateAdvert() {
                       name="district"
                       label="Tumanni tanlang"
                       style={{ width: "50%" }}
-                      rules={[{ required: true }]}
+                      rules={[{ required: true, message: "Tumanni tanlang !" }]}
                     >
-                      <Select placeholder="Tumanni tanlang">
+                      <Select
+                        placeholder="Tumanni tanlang"
+                        onChange={checkDone}
+                      >
                         {districts.length > 0 &&
                           districts.map((item: any) => (
                             <Option key={item.id} value={item.id}>
@@ -234,7 +319,7 @@ function CreateAdvert() {
                     <Form.Item
                       label="Kimlar uchun"
                       name="for_whom"
-                      rules={[{ required: true }]}
+                      rules={[{ required: true, message: "Kimlar uchun ?" }]}
                     >
                       <Radio.Group>
                         <Radio value="M">O‘g’il bolalar uchun</Radio>
@@ -248,7 +333,9 @@ function CreateAdvert() {
                     <Form.Item
                       label="Sheriklikka nechta odam kerak"
                       name="number_of_partner"
-                      rules={[{ required: true }]}
+                      rules={[
+                        { required: true, message: "Odam sonini tanglang !" },
+                      ]}
                     >
                       <Radio.Group optionType="button" buttonStyle="solid">
                         <Radio value="1">1</Radio>
@@ -261,7 +348,7 @@ function CreateAdvert() {
                 </section>
 
                 {/* Rasmlar */}
-                <section>
+                <section id="2">
                   <h2>Rasmlar</h2>
                   <p>
                     Birinchi surat e’loningiz asosiy rasmi bo’ladi. Suratlar
@@ -285,14 +372,16 @@ function CreateAdvert() {
                 </section>
 
                 {/* Parametrlari */}
-                <section className="main__adverts-parametrlar" id="2">
+                <section className="main__adverts-parametrlar" id="3">
                   <h2 className="title">Parametrlari</h2>
 
                   {/* Xonalar soni */}
                   <Form.Item
                     label="Xonalar soni"
                     name="number_of_rooms"
-                    rules={[{ required: true }]}
+                    rules={[
+                      { required: true, message: "Xonalar sonini tanlang !" },
+                    ]}
                   >
                     <Radio.Group optionType="button" buttonStyle="solid">
                       <Radio value="1">1</Radio>
@@ -309,7 +398,9 @@ function CreateAdvert() {
                     <Form.Item
                       label="Umumiy maydon"
                       name="full_area"
-                      rules={[{ required: true }]}
+                      rules={[
+                        { required: true, message: `Maydonni to'ldiring !` },
+                      ]}
                     >
                       <Input addonAfter="㎡" />
                     </Form.Item>
@@ -318,7 +409,9 @@ function CreateAdvert() {
                     <Form.Item
                       label="Yashash maydon"
                       name="live_area"
-                      rules={[{ required: true }]}
+                      rules={[
+                        { required: true, message: `Maydonni to'ldiring !` },
+                      ]}
                     >
                       <Input addonAfter="㎡" />
                     </Form.Item>
@@ -327,7 +420,9 @@ function CreateAdvert() {
                     <Form.Item
                       label="Oshxona maydoni"
                       name="kitchen_area"
-                      rules={[{ required: true }]}
+                      rules={[
+                        { required: true, message: `Maydonni to'ldiring !` },
+                      ]}
                     >
                       <Input addonAfter="㎡" />
                     </Form.Item>
@@ -336,7 +431,9 @@ function CreateAdvert() {
                     <Form.Item
                       label="Qavati"
                       name="floor"
-                      rules={[{ required: true }]}
+                      rules={[
+                        { required: true, message: `Maydonni to'ldiring !` },
+                      ]}
                     >
                       <Input />
                     </Form.Item>
@@ -345,7 +442,9 @@ function CreateAdvert() {
                     <Form.Item
                       label="Umumiy qavati"
                       name="number_of_floors"
-                      rules={[{ required: true }]}
+                      rules={[
+                        { required: true, message: `Maydonni to'ldiring !` },
+                      ]}
                     >
                       <Input />
                     </Form.Item>
@@ -354,7 +453,9 @@ function CreateAdvert() {
                     <Form.Item
                       label="Shift balandligi"
                       name="ceiling_height"
-                      rules={[{ required: true }]}
+                      rules={[
+                        { required: true, message: `Maydonni to'ldiring !` },
+                      ]}
                     >
                       <Input addonAfter="m" />
                     </Form.Item>
@@ -364,7 +465,9 @@ function CreateAdvert() {
                   <Form.Item
                     label="Sanuzel"
                     name="wash_room"
-                    rules={[{ required: true }]}
+                    rules={[
+                      { required: true, message: `Maydonni to'ldiring !` },
+                    ]}
                   >
                     <Radio.Group optionType="button" buttonStyle="solid">
                       <Radio value="SP">Alohida</Radio>
@@ -377,7 +480,9 @@ function CreateAdvert() {
                   <Form.Item
                     label="Mebeli"
                     name="is_furnished"
-                    rules={[{ required: true }]}
+                    rules={[
+                      { required: true, message: `Maydonni to'ldiring !` },
+                    ]}
                   >
                     <Radio.Group optionType="button" buttonStyle="solid">
                       <Radio value={true}>Ha</Radio>
@@ -387,7 +492,7 @@ function CreateAdvert() {
                 </section>
 
                 {/* Qo‘shimcha qulayliklar */}
-                <section className="main__adverts-qoshimcha" id="3">
+                <section className="main__adverts-qoshimcha" id="4">
                   <h2 className="title">Qo‘shimcha qulayliklar</h2>
 
                   {/* Uydagi jihozlar */}
@@ -452,7 +557,9 @@ function CreateAdvert() {
                       <Form.Item
                         label="Yaqinida joylashgan metro"
                         name="near_metro"
-                        rules={[{ required: true }]}
+                        rules={[
+                          { required: true, message: `Maydonni to'ldiring !` },
+                        ]}
                       >
                         <Select placeholder="Metro nomini tanlang">
                           {metroList.length > 0 &&
@@ -468,7 +575,9 @@ function CreateAdvert() {
                       <Form.Item
                         label="Metrogacha qanday boriladi"
                         name="transport_to_metro"
-                        rules={[{ required: true }]}
+                        rules={[
+                          { required: true, message: `Maydonni to'ldiring !` },
+                        ]}
                       >
                         <Radio.Group>
                           <Radio value={false}>Piyoda</Radio>
@@ -481,7 +590,12 @@ function CreateAdvert() {
                           name="distance_to_metro"
                           style={{ width: "50%" }}
                           label="Uydan metrogacha bo‘lgan masofa"
-                          rules={[{ required: true }]}
+                          rules={[
+                            {
+                              required: true,
+                              message: `Maydonni to'ldiring !`,
+                            },
+                          ]}
                         >
                           <Input addonAfter="metr" />
                         </Form.Item>
@@ -490,7 +604,12 @@ function CreateAdvert() {
                           name="time_to_metro"
                           style={{ width: "50%" }}
                           label="Metrogacha ketadigan vaqt"
-                          rules={[{ required: true }]}
+                          rules={[
+                            {
+                              required: true,
+                              message: `Maydonni to'ldiring !`,
+                            },
+                          ]}
                         >
                           <Input addonAfter="daqiqa" />
                         </Form.Item>
@@ -500,7 +619,7 @@ function CreateAdvert() {
                 </section>
 
                 {/* Narxi */}
-                <section className="main__adverts-narx" id="4">
+                <section className="main__adverts-narx" id="5">
                   <h2 className="title">Narxi</h2>
 
                   {/* Narx */}
@@ -515,7 +634,9 @@ function CreateAdvert() {
                     <Form.Item
                       label="Oylik to'lov"
                       name="cost_per_month"
-                      rules={[{ required: true }]}
+                      rules={[
+                        { required: true, message: `Maydonni to'ldiring !` },
+                      ]}
                     >
                       <Input addonAfter="so‘m/oyiga" />
                     </Form.Item>
@@ -533,7 +654,9 @@ function CreateAdvert() {
                   <Form.Item
                     label="Kommunal to'lovlar"
                     name="have_utility_bills"
-                    rules={[{ required: true }]}
+                    rules={[
+                      { required: true, message: `Maydonni to'ldiring !` },
+                    ]}
                   >
                     <Radio.Group optionType="button" buttonStyle="solid">
                       <Radio value={true}>Oylik to‘lov ichida</Radio>
@@ -545,7 +668,9 @@ function CreateAdvert() {
                   <Form.Item
                     label="Vositachilik haqqi"
                     name="have_commission_fee"
-                    rules={[{ required: true }]}
+                    rules={[
+                      { required: true, message: `Maydonni to'ldiring !` },
+                    ]}
                   >
                     <Radio.Group optionType="button" buttonStyle="solid">
                       <Radio value={true}>Bor</Radio>
@@ -555,33 +680,38 @@ function CreateAdvert() {
                 </section>
 
                 {/* Tavsif */}
-                <section className="main__adverts-about" id="5">
+                <section className="main__adverts-about" id="6">
                   <h2 className="title">Tavsif</h2>
 
                   {/* Qisqacha ma'lumot */}
                   <Form.Item
                     label="Qisqacha ma'lumot"
                     name="description"
-                    rules={[{ required: true }]}
+                    rules={[
+                      { required: true, message: `Maydonni to'ldiring !` },
+                    ]}
                   >
                     <Input.TextArea showCount maxLength={1000} rows={5} />
                   </Form.Item>
                 </section>
 
                 {/* Manzil */}
-                <section className="main__adverts-map">
+                <section className="main__adverts-map" id="7">
                   <h2 className="title">Manzil</h2>
                   <p>Iltimos uyingiz manzilini kartadan belgilang !</p>
                   <div style={{ marginTop: 16 }} className="map">
                     <SelectMap
-                      setLocation={(cor: any) => setLocation(cor)}
+                      setLocation={(cor: any) => {
+                        setLocation(cor);
+                        setMap(true);
+                      }}
                       location={location}
                     />
                   </div>
                 </section>
 
                 {/* Telefon raqam */}
-                <section className="main__adverts-phone" id="6">
+                <section className="main__adverts-phone" id="8">
                   <h2 className="title">Aloqa uchun ma'lumotlar</h2>
 
                   <div className="flex" style={{ alignItems: "flex-end" }}>
@@ -600,7 +730,11 @@ function CreateAdvert() {
                         },
                       ]}
                     >
-                      <MaskedInput prefix="+998" mask={"(00) 000 00 00"} />
+                      <MaskedInput
+                        prefix="+998"
+                        mask={"(00) 000 00 00"}
+                        onBeforeInput={checkDone}
+                      />
                     </Form.Item>
 
                     <Form.Item>
@@ -631,30 +765,38 @@ function CreateAdvert() {
             <div className="sidebar">
               <h2>To'ldirish uchun talab qilinadi</h2>
               <div className="sidebar__box">
-                <Link to={"create#1"} className="flex">
-                  <CheckFilledSVG />
+                <a href="#1" className="flex">
+                  {type ? <CheckFilledSVG /> : <CheckSVG />}
                   <span>E’lon turi</span>
-                </Link>
-                <Link to={"create#2"} className="flex">
-                  <CheckSVG />
+                </a>
+                <a href={"#2"} className="flex">
+                  {images ? <CheckFilledSVG /> : <CheckSVG />}
+                  <span>Rasmlar</span>
+                </a>
+                <a href={"#3"} className="flex">
+                  {parametr ? <CheckFilledSVG /> : <CheckSVG />}
                   <span>Parametrlari</span>
-                </Link>
-                <Link to={"create#3"} className="flex">
-                  <CheckSVG />
+                </a>
+                <a href={"#4"} className="flex">
+                  {type ? <CheckFilledSVG /> : <CheckSVG />}
                   <span>Qo‘shimcha qulayliklar</span>
-                </Link>
-                <Link to={"create#4"} className="flex">
-                  <CheckSVG />
+                </a>
+                <a href={"#5"} className="flex">
+                  {price ? <CheckFilledSVG /> : <CheckSVG />}
                   <span>Narxi</span>
-                </Link>
-                <Link to={"create#5"} className="flex">
-                  <CheckSVG />
+                </a>
+                <a href={"#6"} className="flex">
+                  {about ? <CheckFilledSVG /> : <CheckSVG />}
                   <span>Tavsif</span>
-                </Link>
-                <Link to={"create#6"} className="flex">
-                  <CheckSVG />
+                </a>
+                <a href={"#7"} className="flex">
+                  {map ? <CheckFilledSVG /> : <CheckSVG />}
+                  <span>Manzil</span>
+                </a>
+                <a href={"#8"} className="flex">
+                  {phone ? <CheckFilledSVG /> : <CheckSVG />}
                   <span>Aloqa uchun ma'lumotlar</span>
-                </Link>
+                </a>
               </div>
             </div>
           </main>

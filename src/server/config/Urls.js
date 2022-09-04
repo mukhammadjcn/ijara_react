@@ -29,7 +29,7 @@ export const PostAdvertConfig = (data) => {
   return CreateFunc(`announcement/ad/create/`, data);
 };
 export const EditAdvertConfig = (id, data) => {
-  return CreateFunc(`announcement/ad/${id}/`, data);
+  return EditFunc(`announcement/ad/${id}/`, data);
 };
 export const GetAdvertsListConfig = (url = "") => {
   return GetFunc(`/announcement/ads/${url}`);

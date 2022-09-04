@@ -1,8 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CatchError, PrettyPhone } from "src/utils/index";
 import { MaskedInput } from "antd-mask-input";
 import { PlusOutlined } from "@ant-design/icons";
-import { Button, Form, Input, message, Modal, Upload } from "antd";
+import {
+  Button,
+  Form,
+  Image,
+  Input,
+  message,
+  Modal,
+  Upload,
+  UploadFile,
+} from "antd";
 import {
   EditPasswordConfig,
   EditUserConfig,
@@ -10,6 +19,8 @@ import {
 } from "src/server/config/Urls";
 import { useDispatch } from "react-redux";
 import { setUser } from "src/redux/slices/login";
+import { useAppSelector } from "src/hooks/index";
+import { RcFile } from "antd/lib/upload";
 
 function ProfileEdit() {
   const dispatch = useDispatch();
@@ -17,12 +28,21 @@ function ProfileEdit() {
   const [form2] = Form.useForm();
   const [form3] = Form.useForm();
   const [previewImage, setPreviewImage] = useState("");
-  const [fileList, setFileList] = useState<string | Blob>("");
+  const user = useAppSelector((state) => state.Login.user);
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [previewVisible, setPreviewVisible] = useState(false);
 
   const handlePreview = async (file: any) => {
     setPreviewImage(file.thumbUrl || (file.preview as string));
     setPreviewVisible(true);
+  };
+  const uploadPicture = (val: any) => {
+    if (fileList.length < 2) {
+      setFileList([...fileList, val]);
+    } else {
+      message.error("1 tadan ortiq rasm yuklab bo'lmaydi");
+    }
+    return false;
   };
   const handleCancel = () => setPreviewVisible(false);
 
@@ -57,18 +77,17 @@ function ProfileEdit() {
       try {
         // Create new formdata
         const data = new FormData();
-        data.append("agent_name", val.name);
-        data.append("agent_logo", fileList);
+        data.append("agent_name", val.agent_name);
+
+        // Images
+        fileList.forEach((item) => data.append(`agent_logo`, item as RcFile));
 
         // Post to api
         await EditUserConfig(data);
-        message.success("Muvofaqqiyatli yangilandi !");
+        message.success("Muvofaqqiyatli yangilandi !", 2000);
 
         // Reset fields
-        form3.resetFields();
-        setPreviewImage("");
-        setFileList("");
-        getUser();
+        setTimeout(() => window.location.reload(), 2000);
       } catch (error) {
         CatchError(error);
       }
@@ -85,6 +104,21 @@ function ProfileEdit() {
       CatchError(error);
     }
   };
+
+  const setDefaults = () => {
+    form2.setFieldsValue({
+      name: user.name,
+      phone_number: user.phone_number.replace("998", "").slice(0, 8),
+    });
+
+    form3.setFieldsValue({
+      agent_name: user.agent_name,
+    });
+  };
+
+  useEffect(() => {
+    setDefaults();
+  }, [user]);
 
   return (
     <div className="profile__edit">
@@ -181,30 +215,37 @@ function ProfileEdit() {
           form={form3}
           onFinish={sendLogo}
         >
-          <Form.Item
-            label="OTM yoki agentlik nomini logosi"
-            valuePropName="fileList"
+          <div
+            className="flex"
+            style={{ alignItems: "flex-start", justifyContent: "flex-start" }}
           >
-            <Upload
-              listType="picture-card"
-              beforeUpload={(val: any) => {
-                setFileList(val);
-                return false;
-              }}
-              onPreview={handlePreview}
-              onRemove={() => setFileList("")}
-              maxCount={1}
-            >
+            {user.agent_logo && (
               <div>
-                <PlusOutlined />
-                <div style={{ marginTop: 8 }}>Yuklash</div>
+                <h4>Mavjud logo</h4>
+                <Image width={102} height={102} src={user.agent_logo} />
               </div>
-            </Upload>
-          </Form.Item>
+            )}
+            <Form.Item label="Yangi logo" valuePropName="fileList">
+              <Upload
+                listType="picture-card"
+                beforeUpload={uploadPicture}
+                onPreview={handlePreview}
+                onRemove={() => setFileList([])}
+                maxCount={1}
+              >
+                {Object.keys(fileList).length < 1 && (
+                  <div>
+                    <PlusOutlined />
+                    <div style={{ marginTop: 8 }}>Yuklash</div>
+                  </div>
+                )}
+              </Upload>
+            </Form.Item>
+          </div>
 
           <Form.Item
             label="OTM yoki agentlik nomi"
-            name="agent_logo"
+            name="agent_name"
             rules={[{ required: true }]}
           >
             <Input

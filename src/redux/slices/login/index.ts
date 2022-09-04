@@ -9,6 +9,7 @@ const initialState = {
     id: "",
     name: "",
     ad_count: { active: 0, inactive: 0, waiting: 0, rejected: 0 },
+    phone_number: "",
   },
   isApplied: false,
   openModal: false,
