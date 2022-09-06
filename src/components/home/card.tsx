@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Skeleton, Statistic } from "antd";
+import React, { useEffect, useState } from "react";
+import { message, Skeleton, Statistic } from "antd";
 import {
   BusSVG,
   WalkSVG,
@@ -9,6 +9,7 @@ import {
   HeartFilledSVG,
 } from "src/assets/icons";
 import {
+  CatchError,
   CheckApartment,
   FindDistrict,
   FindMetro,
@@ -16,10 +17,36 @@ import {
   prettyDate,
 } from "src/utils/index";
 import { Link } from "react-router-dom";
-import { metroList } from "src/server/Host";
+import { token } from "src/server/Host";
+import { PostLIkeConfig } from "src/server/config/Urls";
 
 function Card({ data }: any) {
   const [liked, setLiked] = useState(false);
+
+  const LikePost = async () => {
+    if (token) {
+      try {
+        const response = await PostLIkeConfig({
+          deep_link: data.deep_link,
+        });
+        if (response.data.status == "added") {
+          setLiked(true);
+          message.success("E'lon sevimlilarga qo'shildi");
+        } else {
+          setLiked(false);
+          message.warning("E'lon sevimlilardan o'chirildi");
+        }
+      } catch (error) {
+        CatchError(error);
+      }
+    } else {
+      message.error("E'lonni sevimlilarga qo'shish uchun tizimga kiring !");
+    }
+  };
+
+  useEffect(() => {
+    setLiked(data?.like);
+  }, [data]);
 
   if (data) {
     return (
@@ -31,11 +58,11 @@ function Card({ data }: any) {
           <span className="card__date">{prettyDate(data.updated_at)}</span>
           <div className="card__like">
             {liked ? (
-              <span onClick={() => setLiked(false)}>
+              <span onClick={LikePost}>
                 <HeartFilledSVG />
               </span>
             ) : (
-              <span onClick={() => setLiked(true)}>
+              <span onClick={LikePost}>
                 <HeartSVG color={"white"} />
               </span>
             )}

@@ -36,7 +36,11 @@ function Adverts() {
       <TabPane tab={`Faol (${user.ad_count.active})`} key="active">
         {adverts.length > 0 ? (
           adverts.map((elem, index) => (
-            <HorizontalCard key={index} data={elem} />
+            <HorizontalCard
+              key={index}
+              data={elem}
+              getAdverts={() => GetAdverts(status)}
+            />
           ))
         ) : (
           <NoData />
@@ -47,7 +51,11 @@ function Adverts() {
       <TabPane tab={`Kutayotgan (${user.ad_count.waiting})`} key="waiting">
         {adverts.length > 0 ? (
           adverts.map((elem, index) => (
-            <HorizontalCard key={index} data={elem} />
+            <HorizontalCard
+              key={index}
+              data={elem}
+              getAdverts={() => GetAdverts(status)}
+            />
           ))
         ) : (
           <NoData />
@@ -58,7 +66,12 @@ function Adverts() {
       <TabPane tab={`Nofaol (${user.ad_count.inactive})`} key="inactive">
         {adverts.length > 0 ? (
           adverts.map((elem, index) => (
-            <HorizontalCard key={index} data={elem} />
+            <HorizontalCard
+              key={index}
+              data={elem}
+              canActive={true}
+              getAdverts={() => GetAdverts(status)}
+            />
           ))
         ) : (
           <NoData />
@@ -69,7 +82,12 @@ function Adverts() {
       <TabPane tab={`Rad etilgan (${user.ad_count.rejected})`} key="rejected">
         {adverts.length > 0 ? (
           adverts.map((elem, index) => (
-            <HorizontalCard key={index} data={elem} />
+            <HorizontalCard
+              key={index}
+              data={elem}
+              rejected={true}
+              getAdverts={() => GetAdverts(status)}
+            />
           ))
         ) : (
           <NoData />

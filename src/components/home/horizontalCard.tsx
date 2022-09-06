@@ -10,16 +10,71 @@ import {
   LocationSVG,
   HeartFilledSVG,
 } from "src/assets/icons";
-import { message, Skeleton, Statistic } from "antd";
+import { message, Modal, Skeleton, Statistic } from "antd";
 import {
+  CatchError,
   FindDistrict,
   FindMetro,
   FindRegion,
   prettyDate,
 } from "src/utils/index";
 import { Link } from "react-router-dom";
+import {
+  ChangeAdvertConfig,
+  DelAdvertsIDConfig,
+  GetUserConfig,
+} from "src/server/config/Urls";
+import { useAppDispatch } from "src/hooks/index";
+import { setUser } from "src/redux/slices/login";
 
-function HorizontalCard({ data = null, stat = true }: any) {
+function HorizontalCard({
+  data = null,
+  stat = true,
+  canActive = false,
+  rejected = false,
+  getAdverts,
+}: any) {
+  const dispatch = useAppDispatch();
+
+  const getUser = async () => {
+    try {
+      const { data } = await GetUserConfig();
+      dispatch(setUser(data));
+    } catch (error) {
+      CatchError(error);
+    }
+  };
+
+  const DeleteAdvert = async () => {
+    Modal.confirm({
+      title: `E'lonni haqiqatdan o'chirmoqchimisz ?`,
+      async onOk() {
+        try {
+          await DelAdvertsIDConfig(data?.deep_link);
+          message.success("Muvofaqqiyatli o'chirildi !");
+          getAdverts();
+          getUser();
+        } catch (error) {
+          CatchError(error);
+        }
+      },
+      centered: true,
+      okText: `O'chirish`,
+      cancelText: "Bekor qilish",
+    });
+  };
+
+  const EditAdvert = async (status = "waiting") => {
+    try {
+      await ChangeAdvertConfig(data?.deep_link, { status });
+      message.success("Muvofaqqiyatli yangilandi !");
+      getAdverts();
+      getUser();
+    } catch (error) {
+      CatchError(error);
+    }
+  };
+
   if (data) {
     return (
       <div className="horizontal-card">
@@ -27,7 +82,7 @@ function HorizontalCard({ data = null, stat = true }: any) {
           <img src={data.image1} alt="" />
         </div>
         <div className="horizontal-card__info">
-          <Link to={`/search/${data.deep_link}`}>
+          <Link to={`/search/${data?.deep_link}`}>
             <div className="title">
               <h2>
                 Ijaraga {data?.number_of_rooms}-xonali kvartira,{" "}
@@ -82,29 +137,31 @@ function HorizontalCard({ data = null, stat = true }: any) {
                   <PhoneSVG />
                   <span>{data.calls}</span>
                 </div>{" "}
-                <div className="flex">
+                {/* <div className="flex">
                   <HeartFilledSVG color="#4F5E71" />
                   <span>256</span>
-                </div>
+                </div> */}
                 {/* <div className="flex">
                   <MessageSVG color="#4F5E71" />
                   <span>256</span>
                 </div> */}
               </div>
-              <div className="action">
-                <a onClick={() => message.info("Ishlab chiqish jarayonida")}>
-                  Yakunlash
-                </a>
-                <a onClick={() => message.info("Ishlab chiqish jarayonida")}>
-                  O‘chirish
-                </a>
-                <button
-                  className="tahrirlash"
-                  onClick={() => message.info("Ishlab chiqish jarayonida")}
-                >
-                  Tahrirlash
-                </button>
-              </div>
+              {!rejected && (
+                <div className="action">
+                  {canActive ? (
+                    <a onClick={() => EditAdvert()}>Faollashtirish</a>
+                  ) : (
+                    <a onClick={() => EditAdvert("inactive")}>Yakunlash</a>
+                  )}
+                  <a onClick={DeleteAdvert}>O‘chirish</a>
+                  <button
+                    className="tahrirlash"
+                    onClick={() => message.info("Ishlab chiqish jarayonida")}
+                  >
+                    Tahrirlash
+                  </button>
+                </div>
+              )}
             </div>
           )}
         </div>

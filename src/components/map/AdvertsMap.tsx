@@ -7,6 +7,7 @@ import {
   ZoomControl,
   TypeSelector,
   SearchControl,
+  FullscreenControl,
   GeolocationControl,
 } from "@pbe/react-yandex-maps";
 import { CatchError } from "src/utils/index";
@@ -26,7 +27,8 @@ function AdvertsMap() {
     { label: "1 km", value: "1000" },
     { label: "5 km", value: "5000" },
     { label: "10 km", value: "10000" },
-    { label: "Hammasi", value: "100000000" },
+    { label: "15 km", value: "15000" },
+    { label: "20 km", value: "20000" },
   ];
 
   const handleMakeParams = (key: any, value: any) => {
@@ -123,6 +125,7 @@ function AdvertsMap() {
             <ZoomControl />
             <TypeSelector />
             <SearchControl />
+            <FullscreenControl />
             <GeolocationControl />
             <Placemark
               geometry={location}

@@ -84,7 +84,7 @@ function App() {
           </Route>
           <Route path="search">
             <Route index element={<SearchPage />} />
-            <Route path=":id" element={<SinglePage />} />
+            <Route path=":deep_link" element={<SinglePage />} />
           </Route>
           <Route path="/*" element={<NotFound />} />
         </Routes>

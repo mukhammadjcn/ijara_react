@@ -3,6 +3,7 @@ import {
   BackSVG,
   BusSVG,
   DateSVG,
+  HeartFilledSVG,
   HeartSVG,
   LocationSVG,
   MessageSVG,
@@ -20,34 +21,50 @@ import {
   FindRegion,
   prettyDate,
 } from "src/utils/index";
-import { useLocation, useNavigate } from "react-router-dom";
-import { GetAdvertsIDConfig, PostLIkeConfig } from "src/server/config/Urls";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  GetAdvertsIDConfig,
+  PhoneStatConfig,
+  PostLIkeConfig,
+} from "src/server/config/Urls";
 import { token } from "src/server/Host";
 import Header from "src/components/header";
 import Footer from "src/components/footer";
 import MetaDecorator from "src/components/meta";
 
 function SelectedAdvert() {
+  const { deep_link } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const [phone, setPhone] = useState(false);
   const [data, setData] = useState<any>(null);
   const [images, setImages] = useState<any>([]);
+  const [liked, setLiked] = useState(false);
 
   const LikePost = async () => {
     if (token) {
       try {
-        await PostLIkeConfig({
-          deep_link: location.pathname.replace("/search/", ""),
+        const { data } = await PostLIkeConfig({
+          deep_link,
         });
-        message.success("Post saqlanganlarga qo'shildi");
+        if (data.status == "added") {
+          setLiked(true);
+          message.success("Post sevimlilarga qo'shildi");
+        } else {
+          setLiked(false);
+          message.warning("Post sevimlilardan o'chirildi");
+        }
       } catch (error) {
         CatchError(error);
       }
     } else {
-      message.error("Postni saqlanganlarga qo'shish uchun tizimga kiring !");
-      setTimeout(() => navigate("/login"), 2000);
+      message.error("Postni sevimlilarga qo'shish uchun tizimga kiring !");
     }
+  };
+
+  const ViewPhone = async () => {
+    setPhone(true);
+    await PhoneStatConfig(deep_link);
   };
 
   const GetImages = (data: any) => {
@@ -68,7 +85,10 @@ function SelectedAdvert() {
       const { data } = await GetAdvertsIDConfig(id);
       setData(data);
       GetImages(data);
-    } catch (error) {}
+      setLiked(data.like);
+    } catch (error) {
+      CatchError(error);
+    }
   };
 
   useEffect(() => {
@@ -103,7 +123,7 @@ function SelectedAdvert() {
                 <span>Ulashish</span>
               </button>
               <button className="create-advert__back flex" onClick={LikePost}>
-                <HeartSVG />
+                {liked ? <HeartFilledSVG /> : <HeartSVG />}
                 <span>Saqlash</span>
               </button>
             </div>
@@ -134,10 +154,12 @@ function SelectedAdvert() {
                         {FindDistrict(data.region, data.district)}
                       </span>
                     </div>
-                    <span>{data?.is_negotiable && "KELISHILADI"}</span>
+                    <span className="kelishiladi">
+                      {data?.is_negotiable && "KELISHILADI"}
+                    </span>
                   </div>
-                  {data.near_metro && (
-                    <div className="flex metro">
+                  <div className="flex metro">
+                    {data.near_metro ? (
                       <div className="flex">
                         <MetroSVG />
                         <span>{FindMetro(data.near_metro)}</span>
@@ -146,13 +168,17 @@ function SelectedAdvert() {
                         </span>
                         {data?.transport_to_metro ? <BusSVG /> : <WalkSVG />}
                       </div>
+                    ) : (
                       <div className="flex">
-                        <DateSVG />
-                        <span>{prettyDate(data.updated_at)}</span>
+                        <MetroSVG />
+                        <span>Metro mavjud emas</span>
                       </div>
+                    )}
+                    <div className="flex">
+                      <DateSVG />
+                      <span>{prettyDate(data.updated_at)}</span>
                     </div>
-                  )}
-
+                  </div>
                   <div className="searchID__carousel">
                     <Carousel
                       autoPlay
@@ -180,15 +206,15 @@ function SelectedAdvert() {
                       <p>Yashash maydoni</p>
                     </div>
                     <div className="">
-                      <h4>{data?.kitchen_area} м²</h4>
-                      <p>Oshxona maydoni</p>
-                    </div>
-                    <div className="">
                       <h4>
-                        {data?.floor}{" "}
+                        {data?.floor}-
                         <span>qavat {data?.number_of_floors} dan</span>
                       </h4>
                       <p>Qavati</p>
+                    </div>
+                    <div className="">
+                      <h4>{data?.views} ta</h4>
+                      <p>Ko'rishlar soni</p>
                     </div>
                   </div>
                   <div className="searchID__tavsif">
@@ -343,13 +369,15 @@ function SelectedAdvert() {
                         </a>
                       </Button>
                     ) : (
-                      <Button size="large" onClick={() => setPhone(true)}>
+                      <Button size="large" onClick={ViewPhone}>
                         Telefon raqamni ko‘rsatish
                       </Button>
                     )}
                   </div>
                 </section>
               </div>
+
+              {/* Sidebar */}
               <div className="searchID__sidebar">
                 <div className="profile__user flex">
                   <div className="img">
@@ -374,7 +402,7 @@ function SelectedAdvert() {
                     </a>
                   </div>
                 ) : (
-                  <a onClick={() => setPhone(true)} className="call">
+                  <a onClick={ViewPhone} className="call">
                     <button>Telefon raqamni ko‘rsatish</button>
                   </a>
                 )}

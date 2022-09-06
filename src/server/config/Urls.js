@@ -31,6 +31,9 @@ export const PostAdvertConfig = (data) => {
 export const EditAdvertConfig = (id, data) => {
   return EditFunc(`announcement/ad/${id}/`, data);
 };
+export const ChangeAdvertConfig = (id, data) => {
+  return EditFunc(`announcement/ads/${id}/`, data, "PATCH");
+};
 export const GetAdvertsListConfig = (url = "") => {
   return GetFunc(`/announcement/ads/${url}`);
 };
@@ -42,6 +45,9 @@ export const GetAdvertsIDConfig = (id) => {
 };
 export const DelAdvertsIDConfig = (id) => {
   return DeleteFunc(`/announcement/ads/${id}/`);
+};
+export const PhoneStatConfig = (id) => {
+  return GetFunc(`/announcement/calls/${id}/`);
 };
 
 // Get Edit user info -----------------------------------------------------------

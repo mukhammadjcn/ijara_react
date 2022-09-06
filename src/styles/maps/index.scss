@@ -59,6 +59,12 @@
       }
     }
   }
+  &__map > div {
+    width: 100% !important;
+    .ymaps-2-1-79-map {
+      width: 100% !important;
+    }
+  }
 }
 
 .ymaps-2-1-79-balloon__close + .ymaps-2-1-79-balloon__content {
