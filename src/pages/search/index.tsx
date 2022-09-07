@@ -369,7 +369,7 @@ function SearchPage() {
           <div className="search__adverts">
             <Tabs defaultActiveKey="1" onChange={handleProfile}>
               <TabPane tab="Hamma e’lonlar" key="1">
-                {adverts.length > 1 ? (
+                {adverts.length > 0 ? (
                   adverts.map((elem, index) => (
                     <HorizontalCard key={index} stat={false} data={elem} />
                   ))
@@ -394,7 +394,7 @@ function SearchPage() {
                 </div>
               </TabPane>
               <TabPane tab="Jismoniy shaxs" key="PP">
-                {adverts.length > 1 ? (
+                {adverts.length > 0 ? (
                   adverts.map((elem, index) => (
                     <HorizontalCard key={index} stat={false} data={elem} />
                   ))
@@ -419,7 +419,7 @@ function SearchPage() {
                 </div>
               </TabPane>
               <TabPane tab="Agentlik" key="AG">
-                {adverts.length > 1 ? (
+                {adverts.length > 0 ? (
                   adverts.map((elem, index) => (
                     <HorizontalCard key={index} stat={false} data={elem} />
                   ))
@@ -444,7 +444,7 @@ function SearchPage() {
                 </div>
               </TabPane>
               <TabPane tab="Oliy ta’lim muassasasi" key="UN">
-                {adverts.length > 1 ? (
+                {adverts.length > 0 ? (
                   adverts.map((elem, index) => (
                     <HorizontalCard key={index} stat={false} data={elem} />
                   ))

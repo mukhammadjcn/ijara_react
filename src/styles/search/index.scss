@@ -27,6 +27,7 @@
     gap: 16px;
     & > div {
       flex-grow: 1;
+      width: 24%;
       h4 {
         margin-bottom: 4px;
       }
@@ -307,7 +308,9 @@
     &__filter {
       gap: 8px;
       flex-direction: column;
-
+      & > div {
+        width: 100%;
+      }
       .clear-filter {
         display: block;
         margin-top: 16px;
