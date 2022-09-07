@@ -14,7 +14,7 @@ function LocationMap({ location = [41.312081, 69.279799] }) {
         apikey: "e6aa58e7-5bdf-4dda-8530-65637a1e591e",
       }}
     >
-      <Map defaultState={{ center: location, zoom: 14 }} height={240}>
+      <Map defaultState={{ center: location, zoom: 14 }} height={500}>
         <ZoomControl />
         <TypeSelector />
 

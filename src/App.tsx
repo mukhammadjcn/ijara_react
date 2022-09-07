@@ -47,7 +47,7 @@ function App() {
 
   // Get Metro at first
   const GetMetro = async () => {
-    if (metroList < 1) {
+    if (metroList.length < 1) {
       try {
         const { data } = await GetMetroConfig();
         SetLocal(METRO, JSON.stringify(data));
@@ -57,9 +57,16 @@ function App() {
     }
   };
 
+  const CheckDefaults = async () => {
+    if (metroList.length < 1 && regionsList.length < 1) {
+      window.location.reload();
+    }
+  };
+
   useEffect(() => {
     GetMetro();
     GetRegions();
+    setTimeout(() => CheckDefaults(), 100);
   }, []);
 
   return (

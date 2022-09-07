@@ -23,7 +23,7 @@ function SearchPage() {
   const { Option } = Select;
   const { TabPane } = Tabs;
   const navigate = useNavigate();
-  const [total, setTotal] = useState(10);
+  const [total, setTotal] = useState(0);
   const currentPage = searchParams.get("page");
   const [districts, setDistricts] = useState<any>([]);
   const [current, setCurrent] = useState(currentPage ? currentPage : 1);
@@ -127,6 +127,15 @@ function SearchPage() {
     setCurrent(val);
     handleMakeParams("page", val);
     GetAdverts();
+  };
+  const handleProfile = (type: string) => {
+    if (type !== "1") {
+      handleMakeParams("profile_type", type);
+      handleMakeParams("page", 1);
+    } else {
+      handleMakeParams("profile_type", "");
+      handleMakeParams("page", 1);
+    }
   };
 
   // Get adverts list
@@ -263,7 +272,11 @@ function SearchPage() {
           </div>
           <div className="search__main">
             <div className="flex">
-              <h2>Biz {total} dan ortiq e'lon topdik</h2>
+              {total > 0 ? (
+                <h2>Biz {total} dan ortiq e'lon topdik</h2>
+              ) : (
+                <h2>Biz birorta ham e'lon topa olamadik</h2>
+              )}
 
               <div className="switch">
                 <Switch />
@@ -354,7 +367,7 @@ function SearchPage() {
             </div>
           </div>
           <div className="search__adverts">
-            <Tabs defaultActiveKey="1" onChange={() => setPage(1)}>
+            <Tabs defaultActiveKey="1" onChange={handleProfile}>
               <TabPane tab="Hamma e’lonlar" key="1">
                 {adverts.length > 1 ? (
                   adverts.map((elem, index) => (
@@ -380,7 +393,7 @@ function SearchPage() {
                   />
                 </div>
               </TabPane>
-              <TabPane tab="Jismoniy shaxs" key="2">
+              <TabPane tab="Jismoniy shaxs" key="PP">
                 {adverts.length > 1 ? (
                   adverts.map((elem, index) => (
                     <HorizontalCard key={index} stat={false} data={elem} />
@@ -405,7 +418,7 @@ function SearchPage() {
                   />
                 </div>
               </TabPane>
-              <TabPane tab="Agentlik" key="3">
+              <TabPane tab="Agentlik" key="AG">
                 {adverts.length > 1 ? (
                   adverts.map((elem, index) => (
                     <HorizontalCard key={index} stat={false} data={elem} />
@@ -430,7 +443,7 @@ function SearchPage() {
                   />
                 </div>
               </TabPane>
-              <TabPane tab="Oliy ta’lim muassasasi" key="4">
+              <TabPane tab="Oliy ta’lim muassasasi" key="UN">
                 {adverts.length > 1 ? (
                   adverts.map((elem, index) => (
                     <HorizontalCard key={index} stat={false} data={elem} />

@@ -30,18 +30,21 @@ function Footer() {
                 <LogoSVG />
               </Link>
               <div className="flex">
-                <Link to={"/"}>
+                <a
+                  href={"https://www.facebook.com/eduuzrasmiy"}
+                  target="_blank"
+                >
                   <FbSVG />
-                </Link>
-                <Link to={"/"}>
+                </a>
+                <a href={"https://t.me/eduuz"} target="_blank">
                   <TgSVG />
-                </Link>
-                <Link to={"/"}>
+                </a>
+                <a href={"https://www.youtube.com/c/eduuz"} target="_blank">
                   <YtSVG />
-                </Link>
-                <Link to={"/"}>
+                </a>
+                <a href={"https://www.instagram.com/edu.uz/"} target="_blank">
                   <InstSVG />
-                </Link>
+                </a>
               </div>
             </div>
             <div className="footer__nav">
@@ -56,7 +59,7 @@ function Footer() {
               <h3>Biz bilan aloqa</h3>
               <a href="tel:1006">Ishonch telefoni: 1006</a>
               <a
-                href="tel:1006"
+                href="tel:998712306464"
                 className="flex"
                 style={{ gap: 4, justifyContent: "flex-start" }}
               >
@@ -64,7 +67,7 @@ function Footer() {
                 <span>+998712306464</span>
               </a>
               <a
-                href="tel:1006"
+                href="tel:998712306464"
                 className="flex"
                 style={{ gap: 4, justifyContent: "flex-start" }}
               >

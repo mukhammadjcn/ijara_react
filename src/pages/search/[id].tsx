@@ -49,16 +49,16 @@ function SelectedAdvert() {
         });
         if (data.status == "added") {
           setLiked(true);
-          message.success("Post sevimlilarga qo'shildi");
+          message.success("E'lon sevimlilarga qo'shildi");
         } else {
           setLiked(false);
-          message.warning("Post sevimlilardan o'chirildi");
+          message.warning("E'lon sevimlilardan o'chirildi");
         }
       } catch (error) {
         CatchError(error);
       }
     } else {
-      message.error("Postni sevimlilarga qo'shish uchun tizimga kiring !");
+      message.error("E'lonni sevimlilarga qo'shish uchun tizimga kiring !");
     }
   };
 
@@ -128,6 +128,7 @@ function SelectedAdvert() {
               </button>
             </div>
             <div className="searchID__box">
+              {/* Main side */}
               <div className="searchID__main">
                 {/* Malumotlar */}
                 <section>
@@ -154,9 +155,9 @@ function SelectedAdvert() {
                         {FindDistrict(data.region, data.district)}
                       </span>
                     </div>
-                    <span className="kelishiladi">
-                      {data?.is_negotiable && "KELISHILADI"}
-                    </span>
+                    {data?.is_negotiable && (
+                      <span className="kelishiladi">KELISHILADI</span>
+                    )}
                   </div>
                   <div className="flex metro">
                     {data.near_metro ? (
@@ -378,42 +379,60 @@ function SelectedAdvert() {
               </div>
 
               {/* Sidebar */}
-              <div className="searchID__sidebar">
-                <div className="profile__user flex">
-                  <div className="img">
-                    {data.owner_data?.name
-                      ? data.owner_data?.name.slice(0, 1)
-                      : "?"}
-                  </div>
-                  <div>
-                    <h4>{data.owner_data?.name || data.owner_data?.id}</h4>
-                    <p>ID {data.owner_data.id}</p>
-                  </div>
-                </div>
-                {phone ? (
-                  <div>
-                    <a
-                      href={`tel:+${data.owner_data.phone_number}`}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="call"
-                    >
-                      <button>+ {data.owner_data.phone_number}</button>
-                    </a>
-                  </div>
-                ) : (
-                  <a onClick={ViewPhone} className="call">
-                    <button>Telefon raqamni ko‘rsatish</button>
-                  </a>
+              <div className="">
+                {data?.owner_data?.agent_logo && (
+                  <>
+                    <div className="searchID__sidebar">
+                      <div className="profile__user profile__agent flex">
+                        <div className="img">
+                          <img src={data?.owner_data?.agent_logo} alt="" />
+                        </div>
+                        <div>
+                          <h4>{data?.owner_data?.agent_name}</h4>
+                        </div>
+                      </div>
+                    </div>
+                    <br />
+                  </>
                 )}
 
-                <button
-                  className="message"
-                  onClick={() => message.info("Ishlab chiqish jarayonida !")}
-                >
-                  <MessageSVG />
-                  <span>Xabar yozish</span>
-                </button>
+                <div className="searchID__sidebar">
+                  <div className="profile__user flex">
+                    <div className="img">
+                      {data.owner_data?.name
+                        ? data.owner_data?.name.slice(0, 1)
+                        : "?"}
+                    </div>
+                    <div>
+                      <h4>{data.owner_data?.name || data.owner_data?.id}</h4>
+                      <p>ID {data.owner_data.id}</p>
+                    </div>
+                  </div>
+                  {phone ? (
+                    <div>
+                      <a
+                        href={`tel:+${data.owner_data.phone_number}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="call"
+                      >
+                        <button>+ {data.owner_data.phone_number}</button>
+                      </a>
+                    </div>
+                  ) : (
+                    <a onClick={ViewPhone} className="call">
+                      <button>Telefon raqamni ko‘rsatish</button>
+                    </a>
+                  )}
+
+                  <button
+                    className="message"
+                    onClick={() => message.info("Ishlab chiqish jarayonida !")}
+                  >
+                    <MessageSVG />
+                    <span>Xabar yozish</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>

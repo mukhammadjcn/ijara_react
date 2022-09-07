@@ -24,7 +24,9 @@ function SavedAdverts() {
   return (
     <div className="profile__saved">
       {adverts.length > 0 ? (
-        adverts.map((elem, index) => <Card key={index} data={elem} />)
+        adverts.map((elem, index) => (
+          <Card key={index} data={elem} getList={GetAdverts} />
+        ))
       ) : (
         <NoData />
       )}

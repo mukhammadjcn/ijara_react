@@ -17,9 +17,10 @@ function HomePage() {
   const [url, setUrl] = useState("");
   const [price, setPrice] = useState<any>([]);
   const [showMetro, setShowMetro] = useState(false);
-  const [showRegions, setShowRegions] = useState(false);
   const [districts, setDistricts] = useState<any>([]);
+  const [showRegions, setShowRegions] = useState(false);
   const [adverts, setAdverts] = useState([null, null, null, null]);
+  const [advertSex, setAdvertsSex] = useState([null, null, null, null]);
 
   const handleMakeParams = (key: any, value: any) => {
     let urlParams = new URLSearchParams(url);
@@ -54,11 +55,21 @@ function HomePage() {
       CatchError(error);
     }
   };
+  // Get adverts list
+  const GetAdvertsSex = async (whom = "M") => {
+    try {
+      const { data } = await GetAdvertsListConfig(`?for_whom=${whom}`);
+      setAdvertsSex(data.results.slice(0, 8));
+    } catch (error) {
+      CatchError(error);
+    }
+  };
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
     AOS.refresh();
     GetAdverts();
+    GetAdvertsSex();
   }, []);
 
   return (
@@ -199,8 +210,8 @@ function HomePage() {
 
           {/* Sherik section */}
           <section className="home__partners">
-            <Tabs defaultActiveKey="men">
-              <TabPane tab="Erkaklar uchun" key="men">
+            <Tabs defaultActiveKey="M" onChange={GetAdvertsSex}>
+              <TabPane tab="Erkaklar uchun" key="M">
                 <div className="home__partners--header">
                   <h2>Ijaraga sherik izlayapmiz!</h2>
                   <div className="flex">
@@ -211,9 +222,9 @@ function HomePage() {
                     <Link to={"/search"}>Hammasini ko‘rish</Link>
                   </div>
                 </div>
-                <SliderMulti data={adverts} />
+                <SliderMulti data={advertSex} />
               </TabPane>
-              <TabPane tab="Ayollar uchun" key="women">
+              <TabPane tab="Ayollar uchun" key="F">
                 <div className="home__partners--header">
                   <h2>Ijaraga sherik izlayapmiz!</h2>
                   <div className="flex">
@@ -224,7 +235,7 @@ function HomePage() {
                     <Link to={"/search"}>Hammasini ko‘rish</Link>
                   </div>
                 </div>
-                <SliderMulti data={adverts} />
+                <SliderMulti data={advertSex} />
               </TabPane>
             </Tabs>
           </section>
@@ -402,7 +413,7 @@ function HomePage() {
                   : regionsList.slice(0, 8).map((item: any) => (
                       <Link
                         key={item.id}
-                        to={`/search?near_metro=${item.id}`}
+                        to={`/search?region=${item.id}`}
                         className="home__nearby--item"
                       >
                         {item.name}
@@ -430,6 +441,3 @@ function HomePage() {
 }
 
 export default HomePage;
-function useRouter() {
-  throw new Error("Function not implemented.");
-}

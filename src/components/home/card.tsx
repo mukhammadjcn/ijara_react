@@ -20,7 +20,7 @@ import { Link } from "react-router-dom";
 import { token } from "src/server/Host";
 import { PostLIkeConfig } from "src/server/config/Urls";
 
-function Card({ data }: any) {
+function Card({ data, getList }: any) {
   const [liked, setLiked] = useState(false);
 
   const LikePost = async () => {
@@ -36,6 +36,9 @@ function Card({ data }: any) {
           setLiked(false);
           message.warning("E'lon sevimlilardan o'chirildi");
         }
+
+        // Get adverts list again
+        getList();
       } catch (error) {
         CatchError(error);
       }

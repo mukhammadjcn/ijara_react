@@ -108,7 +108,7 @@ function ProfileEdit() {
   const setDefaults = () => {
     form2.setFieldsValue({
       name: user.name,
-      phone_number: user.phone_number.replace("998", "").slice(0, 8),
+      phone_number: user.phone_number.replace("998", ` `),
     });
 
     form3.setFieldsValue({
@@ -136,7 +136,9 @@ function ProfileEdit() {
           <Form.Item
             label="Parolingiz"
             name="old_password"
-            rules={[{ required: true }]}
+            rules={[
+              { required: true, message: "Avvalgi passwordni kiriting !" },
+            ]}
           >
             <Input placeholder="Parolingizni kiriting" size="large" />
           </Form.Item>
@@ -144,7 +146,7 @@ function ProfileEdit() {
           <Form.Item
             label="Yangi parolingiz"
             name="new_password"
-            rules={[{ required: true }]}
+            rules={[{ required: true, message: "Yangi passwordni kiriting !" }]}
           >
             <Input placeholder="Yangi parolingizni kiritng" size="large" />
           </Form.Item>
@@ -246,7 +248,9 @@ function ProfileEdit() {
           <Form.Item
             label="OTM yoki agentlik nomi"
             name="agent_name"
-            rules={[{ required: true }]}
+            rules={[
+              { required: true, message: "OTM yoki agentlik nomi kiriting !" },
+            ]}
           >
             <Input
               placeholder="OTM yoki agentlik nomini kiriting"
