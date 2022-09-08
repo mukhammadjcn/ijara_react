@@ -45,7 +45,7 @@ export const HeartSVG = ({ color = "#252A31" }) => (
   </svg>
 );
 
-export const HeartFilledSVG = ({ color = "#D21C1C" }) => (
+export const HeartFilledSVG = ({ color = "#ff4d4f" }) => (
   <svg
     width="24"
     height="26"

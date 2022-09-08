@@ -134,6 +134,30 @@ button {
   }
 }
 
+.like {
+  svg {
+    animation: heart 1.5s ease-in-out infinite;
+  }
+
+  @keyframes heart {
+    0% {
+      transform: scale(1);
+    }
+    25% {
+      transform: scale(1.1);
+    }
+    50% {
+      transform: scale(1);
+    }
+    75% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+}
+
 // Import Slick styles
 @import "~slick-carousel/slick/slick.css";
 @import "~slick-carousel/slick/slick-theme.css";

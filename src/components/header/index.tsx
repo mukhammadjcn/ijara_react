@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Select } from "antd";
 import {
+  HeartFilledSVG,
   HeartSVG,
   LogoSVG,
   PlusSVG,
@@ -60,9 +61,12 @@ export default function Header() {
               <span>Ingliz</span>
             </Option>
           </Select> */}
-          <div className="flex item" onClick={() => navigate("/profile/saved")}>
-            <HeartSVG />
-            <span>Sevimli</span>
+          <div
+            className="flex item like"
+            onClick={() => navigate("/profile/saved")}
+          >
+            <HeartFilledSVG />
+            <span>Sevimlilar</span>
           </div>
           <>
             {!token ? (

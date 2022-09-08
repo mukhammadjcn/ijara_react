@@ -100,7 +100,7 @@ function CreateAdvert() {
       setAbout(false);
     }
 
-    if (!data.phone_number.includes("_")) {
+    if (!data.phone_number?.includes("_")) {
       setPhone(true);
     } else {
       setPhone(false);
