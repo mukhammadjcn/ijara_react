@@ -134,6 +134,26 @@ button {
   }
 }
 
+.map-uzbekistan {
+  path {
+    fill: #e5e5e5;
+    stroke: #ffffff;
+    stroke-width: 0.4px;
+    cursor: pointer;
+    transition: 0.3s ease-in;
+
+    &:hover {
+      fill: #c3e4ff;
+    }
+  }
+  .active {
+    fill: #096dd9;
+    &:hover {
+      fill: #096dd9;
+    }
+  }
+}
+
 .like {
   svg {
     animation: heart 1.5s ease-in-out infinite;

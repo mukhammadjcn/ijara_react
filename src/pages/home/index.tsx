@@ -5,7 +5,7 @@ import Card from "src/components/home/card";
 import SliderMulti from "src/components/slider/SliderMulti";
 import { CatchError } from "src/utils/index";
 import { GetAdvertsListConfig } from "src/server/config/Urls";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "src/components/header";
 import Footer from "src/components/footer";
 import { metroList, regionsList } from "src/server/Host";

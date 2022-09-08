@@ -143,6 +143,9 @@
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
+    .nodata-anim {
+      width: 100%;
+    }
   }
   &__agent {
     .img {
