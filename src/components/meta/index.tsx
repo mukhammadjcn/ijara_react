@@ -13,7 +13,7 @@ const MetaDecorator = ({ title, description, imageUrl, imageAlt }: any) => (
     <meta
       property="og:url"
       content={
-        "https://www.onlim.uz" +
+        "https://www.ijara.edu.uz" +
         window.location.pathname +
         window.location.search
       }
