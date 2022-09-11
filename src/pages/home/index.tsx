@@ -78,7 +78,7 @@ function HomePage() {
       <MetaDecorator
         description={`Ijara.edu.uz talabalar uchun vaqtinchalik yoki doimiy uy topish uchun mahsus platforma. Bunda talabalar o'zlariga qulay bo'lgan kvartirla va uchastkalarni topishadi. Ijara.edu.uz talabar haqida qayg'uradi !`}
         imageAlt={`Ijara.edu.uz talabalar uchun vaqtinchalik yoki doimiy uy topish uchun mahsus platforma. Bunda talabalar o'zlariga qulay bo'lgan kvartirla va uchastkalarni topishadi. Ijara.edu.uz talabar haqida qayg'uradi !`}
-        imageUrl={`https://backoffice.ijara.edu.uz/media/ad_images/2022/09/05/ijara.edu.uz.png`}
+        imageUrl={`https://backoffice.ijara.edu.uz/media/ad_images/2022/09/11/ijara.edu.uz_38LESEK.png`}
         title={""}
       />
       <Header />
