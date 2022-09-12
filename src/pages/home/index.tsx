@@ -79,7 +79,7 @@ function HomePage() {
         description={`Ijara.edu.uz talabalar uchun vaqtinchalik yoki doimiy uy topish uchun mahsus platforma. Bunda talabalar o'zlariga qulay bo'lgan kvartirla va uchastkalarni topishadi. Ijara.edu.uz talabar haqida qayg'uradi !`}
         imageAlt={`Ijara.edu.uz talabalar uchun vaqtinchalik yoki doimiy uy topish uchun mahsus platforma. Bunda talabalar o'zlariga qulay bo'lgan kvartirla va uchastkalarni topishadi. Ijara.edu.uz talabar haqida qayg'uradi !`}
         imageUrl={
-          window.location.hostname +
+          window.location.href.slice(0, -1) +
           require("src/assets/images/ijara.edu.uz.png")
         }
         title={""}
