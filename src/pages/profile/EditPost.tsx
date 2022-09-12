@@ -19,11 +19,7 @@ import { CatchError, PrettyPhone } from "src/utils/index";
 import SelectMap from "src/components/map/SelectMap";
 import { useNavigate, useParams } from "react-router-dom";
 import { metroList, regionsList } from "src/server/Host";
-import {
-  EditAdvertConfig,
-  GetAdvertsIDConfig,
-  PostAdvertConfig,
-} from "src/server/config/Urls";
+import { EditAdvertConfig, GetAdvertsIDConfig } from "src/server/config/Urls";
 
 function EditPost() {
   const { Option } = Select;
@@ -32,6 +28,7 @@ function EditPost() {
   const { deep_link } = useParams();
   const [metro, setMetro] = useState(false);
   const [sherik, setSherik] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [districts, setDistricts] = useState([]);
   const [location, setLocation] = useState<any>([]);
   const [previewImage, setPreviewImage] = useState("");
@@ -52,6 +49,9 @@ function EditPost() {
     return false;
   };
   const onFinish = async (values: any) => {
+    // loading true
+    setLoading(true);
+
     if (fileList.length > 0 && location.length > 0) {
       // Making new Formadata
       const formData = new FormData();
@@ -95,6 +95,9 @@ function EditPost() {
         message.error("Kamida bitta rasm yuklash kerak ");
       }
     }
+
+    // loading false
+    setLoading(false);
   };
   const deletePicture = (file: any) => {
     const index = fileList.indexOf(file);
@@ -622,6 +625,7 @@ function EditPost() {
 
                 <Form.Item>
                   <Button
+                    loading={loading}
                     type="primary"
                     htmlType="submit"
                     style={{ float: "right" }}

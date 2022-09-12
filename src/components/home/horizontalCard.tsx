@@ -147,7 +147,7 @@ function HorizontalCard({
                   <span>256</span>
                 </div> */}
               </div>
-              {!rejected && (
+              {!rejected ? (
                 <div className="action">
                   {canActive ? (
                     <a onClick={() => EditAdvert()}>Faollashtirish</a>
@@ -161,6 +161,10 @@ function HorizontalCard({
                   >
                     Tahrirlash
                   </button>
+                </div>
+              ) : (
+                <div className="action">
+                  <a onClick={DeleteAdvert}>O‘chirish</a>
                 </div>
               )}
             </div>

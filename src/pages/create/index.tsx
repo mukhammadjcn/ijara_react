@@ -30,6 +30,7 @@ function CreateAdvert() {
   const [metro, setMetro] = useState(false);
   const [sherik, setSherik] = useState(false);
   const [location, setLocation] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [districts, setDistricts] = useState([]);
   const [previewImage, setPreviewImage] = useState("");
   const [fileList, setFileList] = useState<UploadFile[]>([]);
@@ -116,6 +117,10 @@ function CreateAdvert() {
     return false;
   };
   const onFinish = async (values: any) => {
+    // loading true
+    setLoading(true);
+
+    // start api
     if (fileList.length > 0 && location.length > 0) {
       // Making new Formadata
       const formData = new FormData();
@@ -166,6 +171,9 @@ function CreateAdvert() {
         message.error("Kamida bitta rasm yuklash kerak ");
       }
     }
+
+    // loading false
+    setLoading(false);
   };
   const deletePicture = (file: any) => {
     const index = fileList.indexOf(file);
@@ -745,6 +753,7 @@ function CreateAdvert() {
 
                     <Form.Item>
                       <Button
+                        loading={loading}
                         type="primary"
                         htmlType="submit"
                         style={{ float: "right" }}

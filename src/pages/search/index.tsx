@@ -390,6 +390,7 @@ function SearchPage() {
                     pageSize={12}
                     current={+current}
                     onChange={setPage}
+                    showSizeChanger={false}
                   />
                 </div>
               </TabPane>
@@ -415,6 +416,7 @@ function SearchPage() {
                     pageSize={12}
                     current={+current}
                     onChange={setPage}
+                    showSizeChanger={false}
                   />
                 </div>
               </TabPane>
@@ -440,6 +442,7 @@ function SearchPage() {
                     pageSize={12}
                     current={+current}
                     onChange={setPage}
+                    showSizeChanger={false}
                   />
                 </div>
               </TabPane>
@@ -465,6 +468,7 @@ function SearchPage() {
                     pageSize={12}
                     current={+current}
                     onChange={setPage}
+                    showSizeChanger={false}
                   />
                 </div>
               </TabPane>

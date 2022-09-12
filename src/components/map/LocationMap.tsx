@@ -12,6 +12,7 @@ function LocationMap({ location = [41.312081, 69.279799] }) {
     <YMaps
       query={{
         apikey: "e6aa58e7-5bdf-4dda-8530-65637a1e591e",
+        // lang: "uz_UZ",
       }}
     >
       <Map defaultState={{ center: location, zoom: 14 }} height={500}>
