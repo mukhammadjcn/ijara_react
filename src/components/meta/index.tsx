@@ -6,7 +6,12 @@ const MetaDecorator = ({ title, description, imageUrl, imageAlt }: any) => (
   <Helmet>
     <title>{title}</title>
     <meta property="og:title" content={title} />
-    <meta name="description" content={description} />
+    <meta name="description" content={description} data-rh="true" />
+    <meta
+      name="keywords"
+      content={`Uy, uy, kvartira, ijara, bollar, tashkent, metro, oylik, novastroyka, ijaraga, makler, maklersiz, komunal, hovli, ko'p qavatli, qizlar, universitet, yotoqxona, bepul, skidka`}
+    />
+    <link rel="canonical" href="https://ijara.edu.uz" />
 
     {/* <!-- Facebook Meta Tags --> */}
     <meta property="og:type" content="website" />

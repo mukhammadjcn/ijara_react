@@ -76,22 +76,22 @@ function HomePage() {
   return (
     <>
       <MetaDecorator
-        description={`Ijara.edu.uz talabalar uchun vaqtinchalik yoki doimiy uy topish uchun mahsus platforma. Bunda talabalar o'zlariga qulay bo'lgan kvartirla va uchastkalarni topishadi. Ijara.edu.uz talabar haqida qayg'uradi !`}
-        imageAlt={`Ijara.edu.uz talabalar uchun vaqtinchalik yoki doimiy uy topish uchun mahsus platforma. Bunda talabalar o'zlariga qulay bo'lgan kvartirla va uchastkalarni topishadi. Ijara.edu.uz talabar haqida qayg'uradi !`}
+        description={`Ijara.edu.uz talabalar uchun vaqtinchalik yoki doimiy uy topish uchun mahsus platforma. Bunda talabalar o'zlariga qulay bo'lgan kvartirla va uchastkalarni topishadi.`}
+        imageAlt={`Ijara.edu.uz talabalar uchun vaqtinchalik yoki doimiy uy topish uchun mahsus platforma. Bunda talabalar o'zlariga qulay bo'lgan kvartirla va uchastkalarni topishadi.`}
         imageUrl={
           window.location.href.slice(0, -1) +
           require("src/assets/images/ijara.edu.uz.png")
         }
-        title={""}
+        title={"Ijara.edu.uz"}
       />
       <Header />
       <div className="home">
         {/* Intro section */}
         <div className="home__intro">
           <div className="container">
-            <h2 className="title">
+            <h1 className="title">
               Talabalar uchun ijaraga turar joy izlash portali !
-            </h2>
+            </h1>
             <div className="home__search flex">
               {/* Viloyat */}
               <Select
