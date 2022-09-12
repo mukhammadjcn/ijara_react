@@ -11,20 +11,15 @@ const MetaDecorator = ({ title, description, imageUrl, imageAlt }: any) => (
     {/* <!-- Facebook Meta Tags --> */}
     <meta property="og:type" content="website" />
     <meta property="og:description" content={description} />
-    <meta name="image" property="og:image" content={imageUrl} />
-    <meta name="image" property="og:image:secure" content={imageUrl} />
-    <meta property="og:url" content={"https://" + window.location.hostname} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:secure_url" content={imageUrl} />
+    <meta property="og:url" content={"https://ijara.edu.uz"} />
+    <meta property="og:site_name" content="Ijara edu uz" />
 
     {/* <!-- Twitter Meta Tags --> */}
     <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      property="twitter:domain"
-      content={"https://" + window.location.hostname}
-    />
-    <meta
-      property="twitter:url"
-      content={"https://" + window.location.hostname}
-    />
+    <meta property="twitter:domain" content={"https://ijara.edu.uz"} />
+    <meta property="twitter:url" content={"https://ijara.edu.uz"} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={imageUrl} />
