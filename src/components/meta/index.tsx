@@ -7,18 +7,27 @@ const MetaDecorator = ({ title, description, imageUrl, imageAlt }: any) => (
     <title>{title}</title>
     <meta property="og:title" content={title} />
     <meta name="description" content={description} />
+
+    {/* <!-- Facebook Meta Tags --> */}
+    <meta property="og:type" content="website" />
     <meta property="og:description" content={description} />
     <meta name="image" property="og:image" content={imageUrl} />
     <meta name="image" property="og:image:secure" content={imageUrl} />
-    <meta
-      property="og:url"
-      content={
-        "https://www.ijara.edu.uz" +
-        window.location.pathname +
-        window.location.search
-      }
-    />
+    <meta property="og:url" content={"https://" + window.location.hostname} />
+
+    {/* <!-- Twitter Meta Tags --> */}
     <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:domain"
+      content={"https://" + window.location.hostname}
+    />
+    <meta
+      property="twitter:url"
+      content={"https://" + window.location.hostname}
+    />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
     <meta name="twitter:image:alt" content={imageAlt} />
   </Helmet>
 );
