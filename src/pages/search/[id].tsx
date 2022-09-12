@@ -379,7 +379,7 @@ function SelectedAdvert() {
               </div>
 
               {/* Sidebar */}
-              <div className="">
+              <div className="searchID__sidebarBox">
                 {data?.owner_data?.agent_logo && (
                   <>
                     <div className="searchID__sidebar">

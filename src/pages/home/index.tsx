@@ -138,7 +138,7 @@ function HomePage() {
               </Select>
 
               {/* Narxi */}
-              <div style={{ width: 300 }}>
+              <div style={{ width: 360 }}>
                 <Dropdown
                   overlay={
                     <div className="search__slider">
@@ -165,9 +165,9 @@ function HomePage() {
                     <Input
                       allowClear
                       size="large"
-                      placeholder="100000 dan"
+                      placeholder="100 000 dan"
                       value={price[0] || null}
-                      style={{ width: 140, flexShrink: 0 }}
+                      style={{ width: 170, flexShrink: 0 }}
                       onChange={(e) => {
                         !e.target.value &&
                           handleMakeParams("cost_per_month__range", null);
@@ -177,9 +177,9 @@ function HomePage() {
                     <Input
                       allowClear
                       size="large"
-                      placeholder="100000 dan"
+                      placeholder="10 000 000 gacha"
                       value={price[1] || null}
-                      style={{ width: 140, flexShrink: 0 }}
+                      style={{ width: 170, flexShrink: 0 }}
                       onChange={(e) => {
                         !e.target.value &&
                           handleMakeParams("cost_per_month__range", null);

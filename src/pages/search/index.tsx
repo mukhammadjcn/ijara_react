@@ -220,7 +220,7 @@ function SearchPage() {
             </Select>
 
             {/* Narxi */}
-            <div style={{ width: 300 }}>
+            <div style={{ width: 380 }}>
               <Dropdown
                 overlay={
                   <div className="search__slider">
@@ -243,8 +243,8 @@ function SearchPage() {
                   <Input
                     allowClear
                     size="large"
-                    placeholder="100000 dan"
-                    style={{ width: 140, flexShrink: 0 }}
+                    placeholder="100 000 dan"
+                    style={{ width: 180, flexShrink: 0 }}
                     value={
                       searchParams.get("cost_per_month__range")?.split(",")[0]
                     }
@@ -256,8 +256,8 @@ function SearchPage() {
                   <Input
                     allowClear
                     size="large"
-                    placeholder="100000 dan"
-                    style={{ width: 140, flexShrink: 0 }}
+                    placeholder="10 000 000 gacha"
+                    style={{ width: 180, flexShrink: 0 }}
                     value={
                       searchParams.get("cost_per_month__range")?.split(",")[1]
                     }
