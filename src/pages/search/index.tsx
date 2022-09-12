@@ -127,6 +127,7 @@ function SearchPage() {
     setCurrent(val);
     handleMakeParams("page", val);
     GetAdverts();
+    window.scrollTo(0, 0);
   };
   const handleProfile = (type: string) => {
     if (type !== "1") {
