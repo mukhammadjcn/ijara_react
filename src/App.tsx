@@ -14,12 +14,13 @@ import {
   token,
 } from "./server/Host";
 import {
-  Create,
-  HomePage,
   Login,
-  MapPage,
-  NotFound,
+  Create,
   Profile,
+  MapPage,
+  HomePage,
+  NotFound,
+  EditPost,
   SearchPage,
   SinglePage,
 } from "./pages";
@@ -87,6 +88,7 @@ function App() {
           >
             <Route index element={<Adverts />} />
             <Route path="edit" element={<ProfileEdit />} />
+            <Route path="post/:deep_link" element={<EditPost />} />
             <Route path="saved" element={<SavedAdverts />} />
           </Route>
           <Route path="search">

@@ -8,6 +8,7 @@ import {
   Checkbox,
   Form,
   Input,
+  InputNumber,
   message,
   Modal,
   Radio,
@@ -638,7 +639,12 @@ function CreateAdvert() {
                         { required: true, message: `Maydonni to'ldiring !` },
                       ]}
                     >
-                      <Input addonAfter="so‘m/oyiga" />
+                      <InputNumber
+                        formatter={(value) =>
+                          `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                        }
+                        addonAfter="so‘m/oyiga"
+                      />
                     </Form.Item>
 
                     <Form.Item

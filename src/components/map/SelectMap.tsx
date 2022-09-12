@@ -12,9 +12,11 @@ import {
 function SelectMap({
   setLocation,
   location,
+  defaultLocation,
 }: {
   setLocation: any;
   location: any;
+  defaultLocation?: any;
 }) {
   return (
     <YMaps
@@ -25,7 +27,10 @@ function SelectMap({
       <Map
         height={500}
         onClick={(val: any) => setLocation(val.get("coords"))}
-        defaultState={{ center: [41.312081, 69.279799], zoom: 14 }}
+        defaultState={{
+          center: defaultLocation || [41.312081, 69.279799],
+          zoom: 14,
+        }}
       >
         <ZoomControl />
         <TypeSelector />

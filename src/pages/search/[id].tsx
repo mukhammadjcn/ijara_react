@@ -33,9 +33,9 @@ import Footer from "src/components/footer";
 import MetaDecorator from "src/components/meta";
 
 function SelectedAdvert() {
-  const { deep_link } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const { deep_link } = useParams();
   const [phone, setPhone] = useState(false);
   const [data, setData] = useState<any>(null);
   const [images, setImages] = useState<any>([]);
@@ -92,9 +92,9 @@ function SelectedAdvert() {
   };
 
   useEffect(() => {
-    GetAdvert(location.pathname.replace("/search/", ""));
+    GetAdvert(deep_link);
     window.scrollTo(0, 0);
-  }, [location.pathname]);
+  }, [deep_link]);
 
   if (data) {
     return (

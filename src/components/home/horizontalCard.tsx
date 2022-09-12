@@ -18,7 +18,7 @@ import {
   FindRegion,
   prettyDate,
 } from "src/utils/index";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   ChangeAdvertConfig,
   DelAdvertsIDConfig,
@@ -34,6 +34,7 @@ function HorizontalCard({
   rejected = false,
   getAdverts,
 }: any) {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const getUser = async () => {
@@ -156,7 +157,7 @@ function HorizontalCard({
                   <a onClick={DeleteAdvert}>O‘chirish</a>
                   <button
                     className="tahrirlash"
-                    onClick={() => message.info("Ishlab chiqish jarayonida")}
+                    onClick={() => navigate(`/profile/post/${data?.deep_link}`)}
                   >
                     Tahrirlash
                   </button>

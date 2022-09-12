@@ -6,6 +6,7 @@ import HomePage from "./home";
 import Profile from "./profile";
 import SearchPage from "./search";
 import SinglePage from "./search/[id]";
+import EditPost from "./profile/EditPost";
 
 export {
   Login,
@@ -14,6 +15,7 @@ export {
   MapPage,
   NotFound,
   HomePage,
+  EditPost,
   SearchPage,
   SinglePage,
 };
