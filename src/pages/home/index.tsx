@@ -78,7 +78,10 @@ function HomePage() {
       <MetaDecorator
         description={`Ijara.edu.uz talabalar uchun vaqtinchalik yoki doimiy uy topish uchun mahsus platforma. Bunda talabalar o'zlariga qulay bo'lgan kvartirla va uchastkalarni topishadi. Ijara.edu.uz talabar haqida qayg'uradi !`}
         imageAlt={`Ijara.edu.uz talabalar uchun vaqtinchalik yoki doimiy uy topish uchun mahsus platforma. Bunda talabalar o'zlariga qulay bo'lgan kvartirla va uchastkalarni topishadi. Ijara.edu.uz talabar haqida qayg'uradi !`}
-        imageUrl={require("src/assets/images/ijara.edu.uz.png")}
+        imageUrl={
+          window.location.hostname +
+          require("src/assets/images/ijara.edu.uz.png")
+        }
         title={""}
       />
       <Header />
