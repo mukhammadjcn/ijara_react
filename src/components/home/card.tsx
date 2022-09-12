@@ -16,11 +16,12 @@ import {
   FindRegion,
   prettyDate,
 } from "src/utils/index";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { token } from "src/server/Host";
 import { PostLIkeConfig } from "src/server/config/Urls";
 
 function Card({ data, getList }: any) {
+  const navigate = useNavigate();
   const [liked, setLiked] = useState(false);
 
   const LikePost = async () => {
@@ -56,18 +57,22 @@ function Card({ data, getList }: any) {
       <div className="card">
         <div className="card__images">
           <div className="card__carousel">
-            <img src={data.image1.replace("http", "https")} alt="" />
+            <img
+              src={data.image1.replace("http", "https")}
+              alt=""
+              onClick={() => navigate(`/search/${data.deep_link}`)}
+            />
           </div>
           <span className="card__date">{prettyDate(data.updated_at)}</span>
           <div className="card__like">
             {liked ? (
-              <span onClick={LikePost}>
+              <div onClick={LikePost}>
                 <HeartFilledSVG />
-              </span>
+              </div>
             ) : (
-              <span onClick={LikePost}>
+              <div onClick={LikePost}>
                 <HeartSVG color={"white"} />
-              </span>
+              </div>
             )}
           </div>
         </div>

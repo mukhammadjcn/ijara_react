@@ -210,6 +210,8 @@
 }
 .carousel .thumb img {
   vertical-align: top;
+  object-fit: cover;
+  height: 100%;
 }
 .carousel.carousel-slider {
   position: relative;

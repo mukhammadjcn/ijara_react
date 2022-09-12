@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import {
-  BackSVG,
   BusSVG,
+  BackSVG,
+  WalkSVG,
   DateSVG,
-  HeartFilledSVG,
   HeartSVG,
-  LocationSVG,
-  MessageSVG,
   MetroSVG,
   ShareSVG,
-  WalkSVG,
+  MessageSVG,
+  LocationSVG,
+  HeartFilledSVG,
 } from "src/assets/icons";
 import { Carousel } from "react-responsive-carousel";
 import LocationMap from "src/components/map/LocationMap";
@@ -31,6 +31,7 @@ import { token } from "src/server/Host";
 import Header from "src/components/header";
 import Footer from "src/components/footer";
 import MetaDecorator from "src/components/meta";
+import { TelegramShareButton } from "react-share";
 
 function SelectedAdvert() {
   const navigate = useNavigate();
@@ -118,10 +119,21 @@ function SelectedAdvert() {
                 <BackSVG />
                 <span>Orqaga</span>
               </button>
-              <button className="create-advert__back flex">
-                <ShareSVG />
-                <span>Ulashish</span>
-              </button>
+              <TelegramShareButton
+                url={window.location.href}
+                title={`\nIjaraga ${
+                  data?.number_of_rooms
+                }-xonali kvartira,${" "}${
+                  data?.full_area
+                } м² \n\nOylik to'lov: ${
+                  data.cost_per_month
+                }, batafsil ma'lumot: ${data?.description}`}
+              >
+                <div className="create-advert__back flex">
+                  <ShareSVG />
+                  <span>Ulashish</span>
+                </div>
+              </TelegramShareButton>
               <button className="create-advert__back flex" onClick={LikePost}>
                 {liked ? <HeartFilledSVG /> : <HeartSVG />}
                 <span>Saqlash</span>

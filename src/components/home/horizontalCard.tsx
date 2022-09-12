@@ -80,7 +80,11 @@ function HorizontalCard({
     return (
       <div className="horizontal-card">
         <div className="horizontal-card__img">
-          <img src={data.image1} alt="" />
+          <img
+            src={data.image1}
+            alt=""
+            onClick={() => navigate(`/search/${data.deep_link}`)}
+          />
         </div>
         <div className="horizontal-card__info">
           <Link to={`/search/${data?.deep_link}`}>
