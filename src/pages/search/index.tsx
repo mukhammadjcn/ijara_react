@@ -100,10 +100,12 @@ function SearchPage() {
     setRegValue(id);
     setDisValue(null);
     handleMakeParams("region", id);
+    setPage(1);
   };
   const handleDistrict = (id: number) => {
     setDisValue(id);
     handleMakeParams("district", id);
+    setPage(1);
   };
   const urlMaker = () => {
     let url = "?";
@@ -122,6 +124,7 @@ function SearchPage() {
     setComminsionValue(null);
     setFurnitureValue(null);
     setMetroValue(null);
+    setPage(1);
   };
   const setPage = (val: any) => {
     setCurrent(val);
@@ -211,6 +214,7 @@ function SearchPage() {
               onChange={(val) => {
                 setNumRoomValue(val);
                 handleMakeParams("number_of_rooms__in", val.join(","));
+                setPage(1);
               }}
             >
               <Option value="1">1</Option>
@@ -232,9 +236,13 @@ function SearchPage() {
                       max={10000000}
                       tipFormatter={(val) => `${val} so'm`}
                       defaultValue={[1000000, 5000000]}
-                      onAfterChange={(val) =>
-                        handleMakeParams("cost_per_month__range", val.join(","))
-                      }
+                      onAfterChange={(val) => {
+                        handleMakeParams(
+                          "cost_per_month__range",
+                          val.join(",")
+                        );
+                        setPage(1);
+                      }}
                     />
                   </div>
                 }
@@ -296,6 +304,7 @@ function SearchPage() {
                   onChange={(val) => {
                     setRentTypeValue(val);
                     handleMakeParams("rent_type", val);
+                    setPage(1);
                   }}
                 >
                   <Option value="LT">Uzoq muddatga</Option>
@@ -315,6 +324,7 @@ function SearchPage() {
                   onChange={(val) => {
                     setComminsionValue(val);
                     handleMakeParams("have_commission_fee", val);
+                    setPage(1);
                   }}
                 >
                   <Option value={"true"}>Bor</Option>
@@ -333,6 +343,7 @@ function SearchPage() {
                   onChange={(val) => {
                     setFurnitureValue(val);
                     handleMakeParams("is_furnished", val);
+                    setPage(1);
                   }}
                 >
                   <Option value={"true"}>Bor</Option>
@@ -351,6 +362,7 @@ function SearchPage() {
                   onChange={(val) => {
                     setMetroValue(val);
                     handleMakeParams("near_metro", val);
+                    setPage(1);
                   }}
                 >
                   {metroList.length > 0 &&
