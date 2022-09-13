@@ -51,7 +51,7 @@ function HomePage() {
   const GetAdverts = async () => {
     try {
       const { data } = await GetAdvertsListConfig();
-      setAdverts(data.results.slice(0, 7));
+      setAdverts(data.results.slice(0, 8));
     } catch (error) {
       CatchError(error);
     }
@@ -215,43 +215,6 @@ function HomePage() {
                   <Card data={item} />
                 </div>
               ))}
-
-              <div>
-                <script
-                  async
-                  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9793153825380056"
-                  crossOrigin="anonymous"
-                ></script>
-                <ins
-                  className="adsbygoogle"
-                  style={{ display: "block" }}
-                  data-ad-format="fluid"
-                  data-ad-layout-key="-d4-1f-2i+49+cp"
-                  data-ad-client="ca-pub-9793153825380056"
-                  data-ad-slot="2983196189"
-                ></ins>
-                <script>
-                  (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-              </div>
-            </div>
-            <div>
-              <script
-                async
-                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9793153825380056"
-                crossOrigin="anonymous"
-              ></script>
-              <ins
-                className="adsbygoogle"
-                style={{ display: "block" }}
-                data-ad-client="ca-pub-9793153825380056"
-                data-ad-slot="8364612855"
-                data-ad-format="auto"
-                data-full-width-responsive="true"
-              ></ins>
-              <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-              </script>
             </div>
           </section>
 
