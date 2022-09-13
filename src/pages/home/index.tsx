@@ -235,6 +235,24 @@ function HomePage() {
                 </script>
               </div>
             </div>
+            <div>
+              <script
+                async
+                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9793153825380056"
+                crossOrigin="anonymous"
+              ></script>
+              <ins
+                className="adsbygoogle"
+                style={{ display: "block" }}
+                data-ad-client="ca-pub-9793153825380056"
+                data-ad-slot="8364612855"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+              ></ins>
+              <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+              </script>
+            </div>
           </section>
 
           {/* Sherik section */}
