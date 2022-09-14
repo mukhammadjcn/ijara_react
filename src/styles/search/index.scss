@@ -208,7 +208,10 @@
     }
   }
   &__tavsif {
-    margin: 32px 0;
+    margin: 32px 0 0;
+    p {
+      white-space: break-spaces;
+    }
   }
   &__malumot {
     display: flex;

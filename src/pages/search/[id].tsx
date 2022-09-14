@@ -234,10 +234,6 @@ function SelectedAdvert() {
                     <h3>Tavsif</h3>
                     <p>{data?.description}</p>
                   </div>
-                  <div className="searchID__manzil">
-                    <h3>Manzil</h3>
-                    <LocationMap location={[data.latitude, data.longitude]} />
-                  </div>
                 </section>
 
                 {/* Kvartira malumotlari */}
@@ -350,6 +346,14 @@ function SelectedAdvert() {
                       <div></div>
                       <span>{data.have_air_conditioner ? "Bor" : "Yo'q"}</span>
                     </div>
+                  </div>
+                </section>
+
+                {/* Map */}
+                <section>
+                  <h3>Manzil</h3>
+                  <div className="searchID__manzil">
+                    <LocationMap location={[data.latitude, data.longitude]} />
                   </div>
                 </section>
 
