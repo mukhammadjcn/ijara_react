@@ -18,15 +18,18 @@ import {
 import { CatchError, PrettyPhone } from "src/utils/index";
 import SelectMap from "src/components/map/SelectMap";
 import { useNavigate } from "react-router-dom";
-import { PostAdvertConfig } from "src/server/config/Urls";
+import { GetUserConfig, PostAdvertConfig } from "src/server/config/Urls";
 import Header from "src/components/header";
 import Footer from "src/components/footer";
 import { metroList, regionsList } from "src/server/Host";
+import { useAppDispatch } from "src/hooks/index";
+import { setUser } from "src/redux/slices/login";
 
 function CreateAdvert() {
   const { Option } = Select;
   const [form] = Form.useForm();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [metro, setMetro] = useState(false);
   const [sherik, setSherik] = useState(false);
   const [location, setLocation] = useState([]);
@@ -116,6 +119,14 @@ function CreateAdvert() {
     }
     return false;
   };
+  const getUser = async () => {
+    try {
+      const { data } = await GetUserConfig();
+      dispatch(setUser(data));
+    } catch (error) {
+      CatchError(error);
+    }
+  };
   const onFinish = async (values: any) => {
     // loading true
     setLoading(true);
@@ -156,6 +167,9 @@ function CreateAdvert() {
         message.success(
           "Muvofaqqiyatli yuborildi, tez orada e'loningiz moderator tomonidan ko'rib chiqiladi !"
         );
+
+        // Get user info again
+        await getUser();
 
         // Navigate to profile
         navigate("/profile");
