@@ -54,7 +54,7 @@ export const CatchError = async (error: any) => {
 };
 
 // Pretty date
-export const prettyDate = (time = "29-10-2022 15:20:38") => {
+export const prettyDate = (time = "29-10-2022 15:20:38", full = true) => {
   const date = new Date(time);
   const monthes: { [id: number]: string } = {
     0: "Yanvar",
@@ -70,9 +70,13 @@ export const prettyDate = (time = "29-10-2022 15:20:38") => {
     10: "Noyabr",
     11: "Dekabr",
   };
-  return `${date.getDate()} ${monthes[date.getMonth()]}, ${date.getHours()}:${
-    date.getMinutes() < 10 ? "0" : ""
-  }${date.getMinutes()}`;
+  if (full) {
+    return `${date.getDate()} ${monthes[date.getMonth()]}, ${date.getHours()}:${
+      date.getMinutes() < 10 ? "0" : ""
+    }${date.getMinutes()}`;
+  } else {
+    return `${date.getDate()} ${monthes[date.getMonth()]}`;
+  }
 };
 
 // Pretty phone

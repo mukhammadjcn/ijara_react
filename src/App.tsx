@@ -32,6 +32,7 @@ import { GetMetroConfig, GetRegionsConfig } from "src/server/config/Urls";
 import Adverts from "./components/profile/Adverts";
 import ProfileEdit from "./components/profile/ProfileEdit";
 import SavedAdverts from "./components/profile/SavedAdverts";
+import Chat from "./components/profile/Chat";
 
 function App() {
   // Get regions at first
@@ -90,6 +91,7 @@ function App() {
             <Route path="edit" element={<ProfileEdit />} />
             <Route path="post/:deep_link" element={<EditPost />} />
             <Route path="saved" element={<SavedAdverts />} />
+            <Route path="chat" element={<Chat />} />
           </Route>
           <Route path="search">
             <Route index element={<SearchPage />} />

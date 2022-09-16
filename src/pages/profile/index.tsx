@@ -72,8 +72,8 @@ function Profile() {
                 {/* <div className="number">4</div> */}
               </div>
               <div
-                className={checkRoute("/messages") ? "flex active" : "flex"}
-                onClick={() => message.info("Ishlab chiqish jarayonida")}
+                className={checkRoute("/chat") ? "flex active" : "flex"}
+                onClick={() => navigate("/profile/chat")}
               >
                 <MessageSVG />
 

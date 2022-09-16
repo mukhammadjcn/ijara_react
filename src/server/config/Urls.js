@@ -88,3 +88,20 @@ export const GetRegionsConfig = () => {
 export const GetMetroConfig = () => {
   return GetFunc(`/announcement/metro/`);
 };
+
+// Chat ---------------------------------------------------------------------
+export const MyChatsConfig = () => {
+  return GetFunc(`/chat/chats/`);
+};
+export const ChatIDConfig = (id) => {
+  return GetFunc(`/chat/chats/${id}/`);
+};
+export const DeleteChatIDConfig = (id) => {
+  return DeleteFunc(`/chat/chats/${id}/`);
+};
+export const ChatFromAdvertConfig = (data) => {
+  return CreateFunc(`/chat/from-ad/`, data);
+};
+export const ChatFromChatConfig = (data) => {
+  return CreateFunc(`/chat/from-chat/`, data);
+};
