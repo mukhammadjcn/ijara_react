@@ -1,11 +1,12 @@
 .home {
   background: $bg1;
   &__intro {
+    background: linear-gradient(to right, #00a99142, #005aa347),
+      url("../../assets/images/bg.jpg");
     min-height: 500px;
-    background-image: url("../../assets/images/intro.webp");
     background-repeat: no-repeat;
-    background-size: cover;
     margin-bottom: 64px;
+    background-position: center;
     .container {
       display: flex;
       flex-direction: column;
@@ -311,7 +312,7 @@
   .home {
     &__intro {
       margin-bottom: 32px;
-      background-position: bottom;
+      background-position: center;
 
       .title {
         font-size: 32px;
