@@ -1,7 +1,7 @@
 import { Statistic } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { DeleteSVG } from "src/assets/icons";
+import { BackSVG, DeleteSVG } from "src/assets/icons";
 import {
   ChatIDConfig,
   ChatFromChatConfig,
@@ -25,7 +25,7 @@ function Chat() {
     } else searchParams.delete(key);
     setSearchParams(searchParams);
   };
-  const handleChat = (id: number, user_id: number) => {
+  const handleChat = (id: any, user_id: any) => {
     handleMakeParams("chat_id", id);
     handleMakeParams("user_id", user_id);
     ScrollToBottom();
@@ -40,9 +40,18 @@ function Chat() {
       for (let message of data.messages) {
         if (date !== prettyDate(message.updated_at, false)) {
           newMessages.unshift({ is_own: "day", day: date });
+          date = prettyDate(message.updated_at, false);
         }
         newMessages.unshift(message);
       }
+
+      newMessages.unshift({
+        is_own: "day",
+        day: prettyDate(
+          data.messages[data.messages.length - 1].updated_at,
+          false
+        ),
+      });
       setMessages(newMessages);
     }
   };
@@ -77,7 +86,13 @@ function Chat() {
   }, [searchParams]);
 
   return (
-    <div className="profile__chat">
+    <div
+      className={
+        searchParams.get("chat_id")
+          ? "profile__chat profile__chatmobile"
+          : "profile__chat"
+      }
+    >
       <div className="profile__chat--sidebar">
         <h2>Yozishmalar</h2>
         <div className="box">
@@ -107,7 +122,12 @@ function Chat() {
                     {new Date(user.updated_at).getMinutes()}
                   </p>
                 </div>
-                <p>
+                <p className="info__mobile">
+                  {user.last_message.length <= 36
+                    ? user.last_message
+                    : `${user.last_message.slice(0, 36)}...`}
+                </p>
+                <p className="info__desktop">
                   {user.last_message.length <= 24
                     ? user.last_message
                     : `${user.last_message.slice(0, 24)}...`}
@@ -122,12 +142,17 @@ function Chat() {
         <div className="profile__chat--main">
           <div className="profile__chat--name">
             <div className="profile__chat--name-user">
+              <div onClick={() => handleChat("", "")} style={{ height: 24 }}>
+                <BackSVG />
+              </div>
               <span>{searchParams.get("user_id")?.slice(0, 1)}</span>
               <div>
                 <h2>{searchParams.get("user_id")}</h2>
                 {new Date().getTime() -
                   new Date(
-                    messages[messages.length - 1]?.updated_at
+                    messages.findLast(
+                      (elem: any) => elem.is_own == false
+                    )?.updated_at
                   ).getTime() <
                 3600000 ? (
                   <span>online</span>

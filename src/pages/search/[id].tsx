@@ -13,7 +13,7 @@ import {
 } from "src/assets/icons";
 import { Carousel } from "react-responsive-carousel";
 import LocationMap from "src/components/map/LocationMap";
-import { Button, message, Skeleton, Statistic } from "antd";
+import { Button, Form, Input, message, Skeleton, Statistic } from "antd";
 import {
   CatchError,
   FindDistrict,
@@ -23,6 +23,7 @@ import {
 } from "src/utils/index";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
+  ChatFromAdvertConfig,
   GetAdvertsIDConfig,
   PhoneStatConfig,
   PostLIkeConfig,
@@ -34,9 +35,10 @@ import MetaDecorator from "src/components/meta";
 import { TelegramShareButton } from "react-share";
 
 function SelectedAdvert() {
+  const [form] = Form.useForm();
   const navigate = useNavigate();
-  const location = useLocation();
   const { deep_link } = useParams();
+  const [canSend, setCanSend] = useState(false);
   const [phone, setPhone] = useState(false);
   const [data, setData] = useState<any>(null);
   const [images, setImages] = useState<any>([]);
@@ -89,6 +91,37 @@ function SelectedAdvert() {
       setLiked(data.like);
     } catch (error) {
       CatchError(error);
+    }
+  };
+
+  const OpenMessage = () => {
+    if (token) {
+      setCanSend(true);
+    } else {
+      message.info("Xabar yuborish uchun ro'yhatdan o'ting !");
+    }
+  };
+
+  const SendMessage = async (val: any) => {
+    if (token) {
+      if (val.message.trim().length > 9) {
+        try {
+          await ChatFromAdvertConfig({
+            ad_deep_link: deep_link,
+            ...val,
+          });
+          form.resetFields();
+          message.success("Muvofaqqiyatli yuborildi !");
+        } catch (error) {
+          CatchError(error);
+        }
+      } else {
+        form.resetFields();
+        message.info("Iltimos kamida 10 ta belgi yuboring !");
+      }
+    } else {
+      message.info("Xabar yuborish uchun ro'yhatdan o'ting !");
+      form.resetFields();
     }
   };
 
@@ -391,6 +424,33 @@ function SelectedAdvert() {
                       </Button>
                     )}
                   </div>
+                  <Form
+                    onFinish={SendMessage}
+                    style={{ marginTop: 16 }}
+                    form={form}
+                  >
+                    <Form.Item
+                      name="message"
+                      rules={[
+                        { required: true, message: "Xabarni yozing" },
+                        {
+                          min: 10,
+                          message: "Kamida 10 ta belgi bo'lishi kerak !",
+                        },
+                      ]}
+                    >
+                      <Input.TextArea placeholder="Xabar yozing...." rows={6} />
+                    </Form.Item>
+
+                    <div
+                      className="flex"
+                      style={{ justifyContent: "flex-end" }}
+                    >
+                      <Button type="primary" htmlType="submit" size="large">
+                        Yuborish
+                      </Button>
+                    </div>
+                  </Form>
                 </section>
               </div>
 
@@ -441,13 +501,43 @@ function SelectedAdvert() {
                     </a>
                   )}
 
-                  <button
-                    className="message"
-                    onClick={() => message.info("Ishlab chiqish jarayonida !")}
-                  >
+                  <button className="message" onClick={OpenMessage}>
                     <MessageSVG />
                     <span>Xabar yozish</span>
                   </button>
+
+                  {canSend && (
+                    <Form
+                      onFinish={SendMessage}
+                      style={{ marginTop: 16 }}
+                      form={form}
+                    >
+                      <Form.Item
+                        name="message"
+                        rules={[
+                          { required: true, message: "Xabarni yozing" },
+                          {
+                            min: 10,
+                            message: "Kamida 10 ta belgi bo'lishi kerak !",
+                          },
+                        ]}
+                      >
+                        <Input.TextArea
+                          placeholder="Xabar yozing...."
+                          rows={6}
+                        />
+                      </Form.Item>
+
+                      <div
+                        className="flex"
+                        style={{ justifyContent: "flex-end" }}
+                      >
+                        <Button type="primary" htmlType="submit" size="large">
+                          Yuborish
+                        </Button>
+                      </div>
+                    </Form>
+                  )}
                 </div>
               </div>
             </div>

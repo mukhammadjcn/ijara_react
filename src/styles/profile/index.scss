@@ -431,6 +431,9 @@
           top: 60%;
           right: 0;
         }
+        .info__mobile {
+          display: none;
+        }
       }
       &__active {
         background: #dce3e9;
@@ -443,6 +446,34 @@
   .profile {
     .container {
       flex-wrap: wrap;
+    }
+  }
+}
+
+@media (max-width: 680px) {
+  .profile {
+    &__chatmobile {
+      .profile__chat--sidebar {
+        display: none;
+      }
+    }
+    &__chat {
+      &--sidebar {
+        width: 100%;
+      }
+      &--chat {
+        .message {
+          width: 80%;
+        }
+      }
+      .user__info {
+        .info__desktop {
+          display: none;
+        }
+        .info__mobile {
+          display: block;
+        }
+      }
     }
   }
 }
