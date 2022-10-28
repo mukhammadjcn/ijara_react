@@ -207,9 +207,9 @@ function HomePage() {
         {/* Big container */}
         <div className="container">
           {/* Adverts section */}
-          <section className="home__adverts">
+          <section className="home__post">
             <h3>E’lonlar</h3>
-            <div className="home__adverts-container flex">
+            <div className="home__post-container flex">
               {adverts.map((item, index) => (
                 <div data-aos="fade-up" data-aos-delay={50 * index} key={index}>
                   <Card data={item} />
