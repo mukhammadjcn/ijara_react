@@ -1,10 +1,27 @@
-import React from "react";
+import "antd/dist/antd.css";
+import { useEffect } from "react";
 import {
-  Route,
-  Routes,
   Navigate,
+  Route,
   BrowserRouter as Router,
+  Routes,
 } from "react-router-dom";
+import { GetMetroConfig, GetRegionsConfig } from "src/server/config/Urls";
+import Adverts from "./components/profile/Adverts";
+import Chat from "./components/profile/Chat";
+import ProfileEdit from "./components/profile/ProfileEdit";
+import SavedAdverts from "./components/profile/SavedAdverts";
+import {
+  Create,
+  EditPost,
+  HomePage,
+  Login,
+  MapPage,
+  NotFound,
+  Profile,
+  SearchPage,
+  SinglePage,
+} from "./pages";
 import {
   METRO,
   metroList,
@@ -13,26 +30,8 @@ import {
   SetLocal,
   token,
 } from "./server/Host";
-import {
-  Login,
-  Create,
-  Profile,
-  MapPage,
-  HomePage,
-  NotFound,
-  EditPost,
-  SearchPage,
-  SinglePage,
-} from "./pages";
-import "antd/dist/antd.css";
 import "./styles/globals.scss";
-import { useEffect } from "react";
 import { CatchError } from "./utils";
-import { GetMetroConfig, GetRegionsConfig } from "src/server/config/Urls";
-import Adverts from "./components/profile/Adverts";
-import ProfileEdit from "./components/profile/ProfileEdit";
-import SavedAdverts from "./components/profile/SavedAdverts";
-import Chat from "./components/profile/Chat";
 
 function App() {
   // Get regions at first
@@ -68,7 +67,7 @@ function App() {
   useEffect(() => {
     GetMetro();
     GetRegions();
-    setTimeout(() => CheckDefaults(), 100);
+    // setTimeout(() => CheckDefaults(), 100);
   }, []);
 
   return (
