@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { MaskedInput } from "antd-mask-input";
 import { PlusOutlined } from "@ant-design/icons";
 import { BackSVG, CheckFilledSVG, CheckSVG } from "src/assets/icons";
@@ -300,7 +300,7 @@ function CreateAdvert() {
                       <Select
                         placeholder="Viloyatni tanlang"
                         onChange={(val) => {
-                          setMetro(val == 17);
+                          setMetro(val == 16);
                           form.setFieldValue("district", null);
                           setDistricts(
                             regionsList.find((item: any) => item.id == val)
